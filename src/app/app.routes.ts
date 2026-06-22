@@ -29,7 +29,7 @@ export const routes: Routes = [
     component: Layout,
     // canActivate: [authGuard],
     children: [
-      { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+      { path: '', redirectTo: 'login', pathMatch: 'full' },
       { path: 'dashboard',              component: Dashboard,            data: { title: 'الرئيسية' } },
       { path: 'maintenance-requests',   component: MaintenanceRequests,  data: { title: 'إدارة الطلبات' } },
       { path: 'maintenance-requests/:id/assign', component: TechnicianAssign, data: { title: 'تكليف فني' } },
