@@ -1,0 +1,10 @@
+:host { display: flex; align-items: center; justify-content: center; flex: 1; min-height: 60vh; }
+.logout-screen { width: 100%; display: flex; align-items: center; justify-content: center; }
+.logout-card { max-width: 420px; width: 100%; text-align: center; padding: 40px 36px; }
+.logout-icon { width: 64px; height: 64px; background: #fdeeea; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 18px; color: #e0633f; }
+.logout-icon svg { width: 32px; height: 32px; }
+.logout-card h2 { font-size: 18px; font-weight: 800; color: var(--text-dark); margin: 0 0 10px; }
+.logout-card p { font-size: 13.5px; color: var(--text-muted); margin: 0 0 24px; line-height: 1.6; }
+.logout-actions { display: flex; gap: 12px; justify-content: center; }
+.btn-logout { background: #e0633f; color: #fff; border: none; border-radius: var(--radius-sm); padding: 11px 28px; font-size: 13.5px; font-weight: 600; font-family: inherit; }
+.btn-cancel { background: var(--page-bg); color: var(--text-muted); border: 1px solid var(--border-soft); border-radius: var(--radius-sm); padding: 11px 28px; font-size: 13.5px; font-weight: 600; font-family: inherit; }

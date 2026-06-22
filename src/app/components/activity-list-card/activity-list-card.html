@@ -1,0 +1,37 @@
+<div class="activity-card">
+  <div class="activity-card__header">
+    <h3>أحدث الطلبات</h3>
+    <button class="activity-card__menu" type="button" aria-label="خيارات">
+      <svg viewBox="0 0 24 24" fill="none">
+        <circle cx="5" cy="12" r="1.6" fill="currentColor"/>
+        <circle cx="12" cy="12" r="1.6" fill="currentColor"/>
+        <circle cx="19" cy="12" r="1.6" fill="currentColor"/>
+      </svg>
+    </button>
+  </div>
+
+  <ul class="activity-card__list">
+    <li *ngFor="let item of items">
+      <span class="activity-card__badge" [class]="'status-' + item.status">
+        {{ statusLabel(item.status) }}
+      </span>
+
+      <span class="activity-card__date">{{ item.date }}</span>
+
+      <span class="activity-card__ring">
+        <svg viewBox="0 0 36 36">
+          <circle cx="18" cy="18" r="15" fill="none" stroke="#eef0f7" stroke-width="4"></circle>
+          <circle
+            cx="18" cy="18" r="15" fill="none"
+            [class]="'ring-' + item.status"
+            stroke-width="4"
+            stroke-linecap="round"
+            [attr.stroke-dasharray]="94.2"
+            [attr.stroke-dashoffset]="94.2 - (94.2 * item.progress / 100)"
+            transform="rotate(-90 18 18)"
+          ></circle>
+        </svg>
+      </span>
+    </li>
+  </ul>
+</div>

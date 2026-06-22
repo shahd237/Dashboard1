@@ -1,0 +1,65 @@
+<div class="auth-page">
+  <div class="dots-tr"></div>
+
+  <div class="auth-card">
+    <!-- Left: Logo -->
+    <div class="auth-card__left">
+      <div class="auth-logo">
+        <div class="auth-logo__icon">
+          <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="25" y="10" width="50" height="72" rx="10" fill="none" stroke="#1b2a52" stroke-width="4"/>
+            <rect x="33" y="18" width="34" height="50" rx="4" fill="#dce6f5"/>
+            <circle cx="50" cy="40" r="12" fill="none" stroke="#1b2a52" stroke-width="3.5"/>
+            <path d="M50 32v8l5 3" stroke="#1b2a52" stroke-width="2.5" stroke-linecap="round"/>
+            <path d="M20 45 Q10 45 10 55" stroke="#1b2a52" stroke-width="3.5" stroke-linecap="round" fill="none"/>
+            <path d="M20 50 Q8 50 8 62" stroke="#1b2a52" stroke-width="3" stroke-linecap="round" fill="none" opacity="0.6"/>
+            <circle cx="25" cy="72" r="6" fill="#1b2a52" opacity="0.85"/>
+            <circle cx="50" cy="86" r="4" fill="#1b2a52" opacity="0.4"/>
+          </svg>
+        </div>
+        <span class="auth-logo__name">لحظة</span>
+        <span class="auth-logo__tagline">— Lohah System —</span>
+      </div>
+    </div>
+
+    <!-- Right: Form -->
+    <div class="auth-card__right">
+      <h2 class="auth-title">مرحباً مجدداً 👋</h2>
+      <p class="auth-subtitle">يسعدنا استقبالك، قم بتسجيل الدخول للوصول إلى لوحة التحكم</p>
+
+      <div class="auth-error" *ngIf="error">{{ error }}</div>
+
+      <div class="auth-form">
+        <div class="auth-field">
+          <label>البريد الإلكتروني</label>
+          <div class="auth-input-wrap">
+            <input type="email" [(ngModel)]="email" placeholder="أدخل بريدك الإلكتروني" (keydown.enter)="submit()" />
+            <svg viewBox="0 0 24 24" fill="none"><rect x="3" y="5.5" width="18" height="13" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M3 8l9 5.5L21 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </div>
+        </div>
+
+        <div class="auth-field">
+          <label>كلمة المرور</label>
+          <div class="auth-input-wrap">
+            <input [type]="showPass ? 'text' : 'password'" [(ngModel)]="password" placeholder="أدخل كلمة المرور" (keydown.enter)="submit()" />
+            <button type="button" (click)="showPass = !showPass">
+              <svg viewBox="0 0 24 24" fill="none" width="16" height="16">
+                <path *ngIf="!showPass" d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12Z" stroke="currentColor" stroke-width="1.5"/><circle *ngIf="!showPass" cx="12" cy="12" r="2.5" stroke="currentColor" stroke-width="1.5"/>
+                <path *ngIf="showPass" d="M3 3l18 18M10.5 10.7A2.5 2.5 0 0 0 13.3 13.5M6.5 6.7C4.5 8 3 10 3 12s3.5 6.5 9 6.5c1.8 0 3.4-.4 4.7-1.1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <a routerLink="/forgot-password" class="auth-forgot">نسيت كلمة المرور؟</a>
+
+        <button class="auth-btn" type="button" (click)="submit()" [disabled]="loading" [routerLink]="['/dashboard']">
+          <svg viewBox="0 0 24 24" fill="none" width="16" height="16"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4M10 17l5-5-5-5M15 12H3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          {{ loading ? 'جارِ التحقق...' : 'تسجيل الدخول' }}
+        </button>
+
+        <p class="auth-hint">بيانات التجربة: admin&#64;lohah.com / admin123</p>
+      </div>
+    </div>
+  </div>
+</div>

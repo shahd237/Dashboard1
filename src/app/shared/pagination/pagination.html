@@ -1,0 +1,17 @@
+<div class="pagination">
+  <button class="pagination__nav" type="button" (click)="go(currentPage - 1)" [disabled]="currentPage === 1">
+    <svg viewBox="0 0 24 24" fill="none"><path d="M15 6l-6 6 6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </button>
+
+  <button
+    *ngFor="let p of pages"
+    class="pagination__dot"
+    type="button"
+    [class.is-active]="p === currentPage"
+    (click)="go(p)"
+  >{{ p }}</button>
+
+  <button class="pagination__nav" type="button" (click)="go(currentPage + 1)" [disabled]="currentPage === totalPages">
+    <svg viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </button>
+</div>

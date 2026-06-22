@@ -1,0 +1,168 @@
+<div class="page-grid">
+  <!-- LEFT: Device Preview Panel -->
+  <div class="page-card preview-panel">
+    <div class="preview-header">
+      <a routerLink="/devices" class="back-link">← رجوع</a>
+      <h3>تفاصيل الهاتف</h3>
+    </div>
+
+    <div class="preview-hero">
+      <div class="preview-image">
+        <svg viewBox="0 0 120 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="8" y="4" width="104" height="192" rx="16" fill="#f0f0f2" stroke="#ccc" stroke-width="2"/>
+          <rect x="16" y="16" width="88" height="152" rx="8" fill="#dde3f8"/>
+          <rect x="36" y="6" width="48" height="8" rx="4" fill="#b0b0b8"/>
+          <circle cx="60" cy="180" r="8" fill="#ccc"/>
+          <text x="60" y="85" text-anchor="middle" font-size="11" fill="#2e4ec0" font-weight="bold">iPhone</text>
+          <text x="60" y="100" text-anchor="middle" font-size="9" fill="#666">15 Pro</text>
+        </svg>
+      </div>
+      <div class="preview-meta">
+        <span class="preview-badge">جديد</span>
+        <h2>{{ device.model }}</h2>
+        <div class="preview-rating">
+          <span *ngFor="let s of [1,2,3,4,5]">
+            <svg viewBox="0 0 14 14" [attr.fill]="s <= device.rating ? '#f0b429' : '#ddd'" width="14" height="14"><path d="M7 1l1.6 3.3 3.6.5-2.6 2.5.6 3.6L7 9.3l-3.2 1.6.6-3.6L1.8 4.8l3.6-.5L7 1Z"/></svg>
+          </span>
+          <span class="rating-num">{{ device.rating }}</span>
+        </div>
+        <div class="preview-storage">{{ device.storage }}</div>
+      </div>
+    </div>
+
+    <div class="preview-section">
+      <h4>الألوان المتاحة</h4>
+      <div class="color-swatches">
+        <button *ngFor="let c of colors" class="color-swatch"
+          [style.background]="c" [class.is-selected]="c === selectedColor"
+          (click)="selectedColor = c"></button>
+      </div>
+    </div>
+
+    <div class="preview-section">
+      <p class="device-desc">{{ device.description }}</p>
+    </div>
+
+    <div class="preview-section">
+      <h4>المواصفات الأساسية</h4>
+      <div class="specs-grid">
+        <div class="spec-item" *ngFor="let s of specs">
+          <span class="spec-label">{{ s.label }}</span>
+          <span class="spec-value">{{ s.value }}</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="preview-section pros-cons">
+      <div class="pros">
+        <h4 class="pros-title">المميزات</h4>
+        <ul>
+          <li *ngFor="let p of pros"><span class="dot green"></span>{{ p }}</li>
+        </ul>
+      </div>
+      <div class="cons">
+        <h4 class="cons-title">العيوب</h4>
+        <ul>
+          <li *ngFor="let c of cons"><span class="dot red"></span>{{ c }}</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="preview-section">
+      <h4>تقييمات المستخدمين <span class="rating-count">41</span></h4>
+      <div class="rating-bars">
+        <div *ngFor="let r of ratings" class="rating-bar-row">
+          <span class="rating-bar-label">{{ r.label }}</span>
+          <div class="rating-bar-track">
+            <div class="rating-bar-fill" [style.width.%]="r.pct"></div>
+          </div>
+          <span class="rating-bar-pct">{{ r.pct }}%</span>
+        </div>
+      </div>
+    </div>
+
+    <button class="btn-save-full" type="button" (click)="save()">حفظ التغييرات</button>
+  </div>
+
+  <!-- RIGHT: Edit Form -->
+  <div class="page-card edit-panel">
+    <div class="edit-header">
+      <a routerLink="/devices" class="back-link">← رجوع</a>
+      <h3>تعديل هاتف</h3>
+    </div>
+
+    <div class="edit-form">
+      <div class="form-row">
+        <div class="form-group"><label>اسم الموديل</label><input [(ngModel)]="device.model" /></div>
+        <div class="form-group"><label>الفئة</label><input [(ngModel)]="device.category" /></div>
+      </div>
+
+      <div class="form-group form-group--colors">
+        <label>صور الهواتف</label>
+        <div class="phone-variants">
+          <div class="phone-variant" *ngFor="let c of colors; let i = index" [style.borderColor]="c === selectedColor ? c : 'transparent'" (click)="selectedColor = c">
+            <svg viewBox="0 0 36 60" fill="none" width="26" height="42">
+              <rect x="2" y="2" width="32" height="56" rx="5" [attr.fill]="c" fill-opacity="0.25" stroke="#aaa" stroke-width="1.5"/>
+              <rect x="7" y="10" width="22" height="32" rx="2" fill="white" fill-opacity="0.5"/>
+              <circle cx="18" cy="52" r="2.5" fill="#999"/>
+            </svg>
+          </div>
+          <div class="phone-variant add-variant">
+            <svg viewBox="0 0 24 24" fill="none" width="22" height="22"><path d="M12 5v14M5 12h14" stroke="#aaa" stroke-width="2" stroke-linecap="round"/></svg>
+            <span>إضافة صورة</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group"><label>السعر</label><input type="number" [(ngModel)]="device.price" /></div>
+        <div class="form-group"><label>الضمان (شهر)</label><input type="number" [(ngModel)]="device.warranty" /></div>
+      </div>
+
+      <div class="form-group">
+        <label>خيارات التخزين المتاحة</label>
+        <div class="storage-options">
+          <button *ngFor="let s of storageOptions" class="storage-btn"
+            [class.is-selected]="s === selectedStorage"
+            (click)="selectedStorage = s">{{ s }}</button>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group"><label>المعالج</label><input [(ngModel)]="device.processor" /></div>
+        <div class="form-group"><label>الذاكرة RAM</label><input [(ngModel)]="device.ram" /></div>
+      </div>
+
+      <div class="form-group">
+        <label>الوصف</label>
+        <textarea [(ngModel)]="device.description" rows="3"></textarea>
+      </div>
+
+      <div class="form-group">
+        <label>تاريخ الإصدار</label>
+        <div class="date-check"><input type="date" /><label class="checkbox-opt"><input type="checkbox" /> بدون تاريخ انتهاء</label></div>
+      </div>
+
+      <div class="form-group">
+        <label>سبب الإلغاء</label>
+        <textarea rows="2" placeholder="اكتب سبب الإلغاء إن وجد..."></textarea>
+      </div>
+
+      <div class="section-title">الطلبات المرتبطة</div>
+      <div class="repair-orders">
+        <table>
+          <thead><tr><th>رقم الطلب</th><th>التاريخ</th><th>العطل</th><th>السعر</th><th>الحالة</th></tr></thead>
+          <tbody>
+            <tr *ngFor="let r of repairOrders">
+              <td>{{ r.id }}</td><td>{{ r.date }}</td><td>{{ r.issue }}</td>
+              <td>{{ r.price }}</td>
+              <td><span class="badge-done">{{ r.status }}</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <button class="btn-save" type="button" (click)="save()">حفظ التغييرات</button>
+    </div>
+  </div>
+</div>

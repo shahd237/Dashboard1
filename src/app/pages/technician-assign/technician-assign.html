@@ -1,0 +1,69 @@
+<div class="page-grid">
+  <div class="page-card">
+    <div class="form-header">
+      <a routerLink="/maintenance-requests" class="back-link">← رجوع</a>
+      <h3>تفاصيل تكليف الفني</h3>
+    </div>
+    <div class="assign-form">
+      <div class="form-row">
+        <div class="form-group"><label>رقم الطلب</label><input [value]="form.requestId" readonly /></div>
+        <div class="form-group"><label>نوع الجهاز</label><input [(ngModel)]="form.deviceType" /></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label>المشكلة</label>
+          <div class="problem-tags">
+            <span class="tag tag--active">داخل الفرز</span>
+            <span class="tag">كسر عادي</span>
+          </div>
+        </div>
+        <div class="form-group"><label>الفني المكلف</label>
+          <select [(ngModel)]="form.technicianId">
+            <option value="">اختر الفني</option>
+            <option *ngFor="let t of technicians" [value]="t.id">{{ t.name }}</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label>تاريخ الزيارة</label><input type="date" [(ngModel)]="form.scheduledDate" /></div>
+        <div class="form-group"><label>وقت الزيارة</label><input type="time" [(ngModel)]="form.scheduledTime" /></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label>مدة الزيارة (ساعة)</label><input type="number" [(ngModel)]="form.estimatedDuration" /></div>
+        <div class="form-group"><label>نوع الزيارة</label>
+          <select [(ngModel)]="form.priority">
+            <option *ngFor="let p of priorities">{{ p }}</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group full"><label>عنوان الزيارة</label><input [(ngModel)]="form.address" /></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group full"><label>ملاحظات</label><textarea [(ngModel)]="form.notes" rows="3" placeholder="أضف ملاحظات..."></textarea></div>
+      </div>
+      <div class="form-actions">
+        <a routerLink="/maintenance-requests" class="btn-cancel">إلغاء</a>
+        <button class="btn-submit" type="button" (click)="submit()">تكليف الفني ✓</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="side-info">
+    <div class="page-card info-card">
+      <h4>بيانات الطلب</h4>
+      <ul class="info-list">
+        <li><span>اسم العميل</span><span>{{ form.clientName }}</span></li>
+        <li><span>رقم الهاتف</span><span>{{ clientInfo.phone }}</span></li>
+        <li><span>البريد</span><span>{{ clientInfo.email }}</span></li>
+        <li><span>المدينة</span><span>{{ clientInfo.city }}</span></li>
+        <li><span>نوع العطل</span><span>{{ form.problem }}</span></li>
+        <li><span>الحالة</span><span class="badge-new">{{ form.status }}</span></li>
+        <li><span>وسيلة الدفع</span><span>لا يوجد</span></li>
+      </ul>
+      <div class="device-image-placeholder">
+        <svg viewBox="0 0 24 24" fill="none" width="40" height="40"><rect x="7" y="2" width="10" height="20" rx="2" stroke="#aab" stroke-width="1.5"/><circle cx="12" cy="18" r="1" fill="#aab"/></svg>
+        <span>صورة الجهاز</span>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,42 @@
+<div class="chat-layout">
+  <div class="chat-list">
+    <div class="chat-list__search">
+      <svg viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="6.5" stroke="currentColor" stroke-width="1.8"/><path d="M20 20l-4.3-4.3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+      <input type="text" placeholder="بحث في المحادثات..." />
+    </div>
+    <ul>
+      <li *ngFor="let conv of conversations" [class.is-active]="conv.id === activeId" (click)="selectConversation(conv.id)">
+        <div class="chat-list__avatar">{{ conv.name.charAt(0) }}</div>
+        <div class="chat-list__meta">
+          <span class="chat-list__name">{{ conv.name }}</span>
+          <span class="chat-list__last">{{ conv.lastMsg }}</span>
+        </div>
+        <div class="chat-list__right">
+          <span class="chat-list__time">{{ conv.time }}</span>
+          <span *ngIf="conv.unread" class="chat-list__badge">{{ conv.unread }}</span>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <div class="chat-window">
+    <div class="chat-window__header">
+      <div class="chat-window__avatar">{{ activeConversation?.name?.charAt(0) }}</div>
+      <span class="chat-window__name">{{ activeConversation?.name }}</span>
+    </div>
+
+    <div class="chat-window__messages">
+      <div *ngFor="let msg of activeMessages" class="chat-msg" [class.is-admin]="msg.from === 'admin'">
+        <div class="chat-msg__bubble">{{ msg.text }}</div>
+        <span class="chat-msg__time">{{ msg.time }}</span>
+      </div>
+    </div>
+
+    <div class="chat-window__input">
+      <input type="text" placeholder="اكتب رسالة..." [(ngModel)]="newMessage" (keydown.enter)="send()" />
+      <button class="chat-window__send" type="button" (click)="send()">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M22 2L11 13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M22 2L15 22l-4-9-9-4 20-7Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+  </div>
+</div>

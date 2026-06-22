@@ -1,0 +1,36 @@
+<div class="line-chart-card">
+  <div class="line-chart-card__header">
+    <h3>إجمالي طلبات الصيانة لكل 3 شهور</h3>
+    <button class="line-chart-card__menu" type="button" aria-label="خيارات">
+      <svg viewBox="0 0 24 24" fill="none">
+        <circle cx="5" cy="12" r="1.6" fill="currentColor"/>
+        <circle cx="12" cy="12" r="1.6" fill="currentColor"/>
+        <circle cx="19" cy="12" r="1.6" fill="currentColor"/>
+      </svg>
+    </button>
+  </div>
+
+  <div class="line-chart-card__chart">
+    <svg viewBox="0 0 560 190" preserveAspectRatio="none">
+      <defs>
+        <linearGradient id="areaFade" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#5b7fe0" stop-opacity="0.18"/>
+          <stop offset="100%" stop-color="#5b7fe0" stop-opacity="0"/>
+        </linearGradient>
+      </defs>
+
+      <line *ngFor="let gy of gridLines" x1="16" [attr.y1]="gy" x2="544" [attr.y2]="gy" stroke="#eef0f7" stroke-width="1" />
+
+      <path [attr.d]="areaPath" fill="url(#areaFade)" stroke="none"></path>
+      <path [attr.d]="linePath" fill="none" stroke="#5b7fe0" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"></path>
+
+      <g *ngFor="let p of points">
+        <circle [attr.cx]="p.x" [attr.cy]="p.y" r="3.5" fill="#ffffff" stroke="#5b7fe0" stroke-width="2"></circle>
+      </g>
+    </svg>
+
+    <div class="line-chart-card__xaxis">
+      <span *ngFor="let m of months">{{ m }}</span>
+    </div>
+  </div>
+</div>

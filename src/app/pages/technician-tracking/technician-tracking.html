@@ -1,0 +1,80 @@
+<div class="page-grid">
+  <div class="tracking-left">
+    <div class="page-card">
+      <div class="tracking-stats">
+        <div class="tracking-stat" *ngFor="let s of stats">
+          <span class="tracking-stat__value">{{ s.value }}</span>
+          <span class="tracking-stat__label">{{ s.label }}</span>
+        </div>
+        <div class="tracking-stat">
+          <span class="tracking-stat__value">4.8 ★</span>
+          <span class="tracking-stat__label">تقييم الفني</span>
+        </div>
+      </div>
+
+      <div class="map-container">
+        <svg viewBox="0 0 500 220" xmlns="http://www.w3.org/2000/svg">
+          <rect width="500" height="220" fill="#e8ecf0" rx="8"/>
+          <!-- Grid lines simulating map -->
+          <line x1="0" y1="55" x2="500" y2="55" stroke="#d4d8de" stroke-width="1"/>
+          <line x1="0" y1="110" x2="500" y2="110" stroke="#d4d8de" stroke-width="1"/>
+          <line x1="0" y1="165" x2="500" y2="165" stroke="#d4d8de" stroke-width="1"/>
+          <line x1="100" y1="0" x2="100" y2="220" stroke="#d4d8de" stroke-width="1"/>
+          <line x1="250" y1="0" x2="250" y2="220" stroke="#d4d8de" stroke-width="1"/>
+          <line x1="400" y1="0" x2="400" y2="220" stroke="#d4d8de" stroke-width="1"/>
+          <!-- Road -->
+          <path d="M60 170 Q120 130 180 120 Q260 108 300 115 Q360 122 440 100" stroke="#b0b8c8" stroke-width="14" fill="none" stroke-linecap="round"/>
+          <path d="M60 170 Q120 130 180 120 Q260 108 300 115 Q360 122 440 100" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round" stroke-dasharray="12 10"/>
+          <!-- Route line -->
+          <path d="M80 165 Q150 128 200 118 Q270 106 310 113 Q370 120 430 104" stroke="#2e4ec0" stroke-width="3" fill="none" stroke-linecap="round"/>
+          <!-- Start pin -->
+          <circle cx="80" cy="165" r="10" fill="#2e4ec0"/>
+          <text x="80" y="169" text-anchor="middle" fill="white" font-size="10">A</text>
+          <!-- Technician (motorcycle) -->
+          <circle cx="240" cy="112" r="10" fill="#ffffff" stroke="#2e4ec0" stroke-width="2"/>
+          <text x="240" y="116" text-anchor="middle" fill="#2e4ec0" font-size="10">🏍</text>
+          <!-- End pin -->
+          <circle cx="430" cy="104" r="10" fill="#2e4ec0"/>
+          <text x="430" y="108" text-anchor="middle" fill="white" font-size="10">B</text>
+        </svg>
+      </div>
+
+      <div class="timeline-section">
+        <h4>حالة الطلب</h4>
+        <div class="timeline">
+          <div *ngFor="let step of timeline; let last = last" class="timeline-step" [class.is-done]="step.done">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+              <span class="timeline-label">{{ step.label }}</span>
+              <span class="timeline-time">{{ step.time }}</span>
+            </div>
+            <div *ngIf="!last" class="timeline-line"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tracking-right">
+    <div class="page-card info-panel">
+      <h4>بيانات التوصيل</h4>
+      <ul class="info-list">
+        <li *ngFor="let item of deliveryInfo">
+          <span>{{ item.label }}</span><span>{{ item.value }}</span>
+        </li>
+      </ul>
+    </div>
+    <div class="page-card info-panel" style="margin-top:14px">
+      <h4>
+        <svg viewBox="0 0 16 16" fill="none" width="14" height="14" style="vertical-align:middle;margin-left:4px"><path d="M8 1.5a6.5 6.5 0 1 0 0 13A6.5 6.5 0 0 0 8 1.5Zm0 2v5l3 1.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+        تحديث حالة الطلب
+      </h4>
+      <div class="update-form">
+        <div class="form-group" *ngFor="let f of updateFields">
+          <label>{{ f.label }}</label>
+          <input [value]="f.value" />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

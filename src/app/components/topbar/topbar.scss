@@ -1,0 +1,74 @@
+.topbar {
+  height: 60px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  background: var(--navy-mid);
+  color: #ffffff;
+}
+
+.topbar__right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.topbar__hamburger {
+  width: 32px; height: 32px;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+}
+.topbar__hamburger svg { width: 20px; height: 20px; color: rgba(255,255,255,0.85); }
+
+.topbar__title {
+  font-size: 15px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.topbar__left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.topbar__icon-btn {
+  width: 34px; height: 34px;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.1);
+  border: none;
+  color: #ffffff;
+  cursor: pointer;
+}
+.topbar__icon-btn svg { width: 17px; height: 17px; }
+
+.topbar__profile {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-right: 10px;
+  border-right: 1px solid rgba(255,255,255,0.15);
+}
+
+.topbar__avatar {
+  width: 34px; height: 34px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #f5a623, #e8632a);
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700; font-size: 13px; color: #ffffff;
+  flex-shrink: 0;
+}
+
+.topbar__user-meta {
+  display: flex; flex-direction: column; line-height: 1.25;
+  text-align: right;
+}
+.topbar__user-name { font-size: 12.5px; font-weight: 600; }
+.topbar__user-role { font-size: 10.5px; color: rgba(255,255,255,0.6); }
+
+@media (max-width: 640px) {
+  .topbar__user-meta { display: none; }
+}

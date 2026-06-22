@@ -1,0 +1,40 @@
+<div class="donut-card">
+  <div class="donut-card__header">
+    <h3>إحصائيات الإيرادات</h3>
+    <button class="donut-card__menu" type="button" aria-label="خيارات">
+      <svg viewBox="0 0 24 24" fill="none">
+        <circle cx="5" cy="12" r="1.6" fill="currentColor"/>
+        <circle cx="12" cy="12" r="1.6" fill="currentColor"/>
+        <circle cx="19" cy="12" r="1.6" fill="currentColor"/>
+      </svg>
+    </button>
+  </div>
+
+  <div class="donut-card__body">
+    <ul class="donut-card__legend">
+      <li *ngFor="let seg of segments">
+        <span class="donut-card__dot" [style.background]="seg.color"></span>
+        <span>{{ seg.label }}</span>
+      </li>
+    </ul>
+
+    <div class="donut-card__chart">
+      <svg viewBox="0 0 36 36">
+        <circle
+          *ngFor="let seg of segments"
+          cx="18" cy="18" r="15.9155"
+          fill="none"
+          [attr.stroke]="seg.color"
+          stroke-width="5.5"
+          [attr.stroke-dasharray]="seg.dashArray + ' ' + totalCircumference"
+          [attr.stroke-dashoffset]="seg.dashOffset"
+          transform="rotate(-90 18 18)"
+        ></circle>
+      </svg>
+      <div class="donut-card__center">
+        <span class="donut-card__center-main">AED</span>
+        <span class="donut-card__center-sub">الإيرادات</span>
+      </div>
+    </div>
+  </div>
+</div>

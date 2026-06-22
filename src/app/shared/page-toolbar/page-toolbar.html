@@ -1,0 +1,16 @@
+<div class="toolbar">
+  <button *ngIf="addLabel" class="toolbar__add" type="button" (click)="addClicked.emit()">
+    <span>{{ addLabel }}</span>
+    <svg viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+  </button>
+
+  <button *ngFor="let f of filters" class="toolbar__filter" type="button">
+    <span>{{ f.label }}</span>
+    <svg viewBox="0 0 24 24" fill="none"><path d="M7 10l5 5 5-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </button>
+
+  <div class="toolbar__search">
+    <svg viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="6.5" stroke="currentColor" stroke-width="1.8"/><path d="M20 20l-4.3-4.3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+    <input type="text" [placeholder]="searchPlaceholder" [(ngModel)]="searchTerm" />
+  </div>
+</div>

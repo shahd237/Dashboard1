@@ -1,0 +1,38 @@
+<div class="data-table">
+  <table>
+    <thead>
+      <tr>
+        <th class="data-table__actions-head" *ngIf="actions.length"></th>
+        <th *ngFor="let col of columns" [style.width]="col.width">{{ col.header }}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let row of rows">
+        <td class="data-table__actions" *ngIf="actions.length">
+          <button *ngFor="let action of actions" class="data-table__action-btn" type="button" [class]="'is-' + action" (click)="actionClick.emit({ icon: action, row: row })">
+            <svg *ngIf="action === 'edit'" viewBox="0 0 24 24" fill="none"><path d="M16.5 4.5l3 3L8 19l-4 1 1-4 11.5-11.5Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+            <svg *ngIf="action === 'delete'" viewBox="0 0 24 24" fill="none"><path d="M5 7h14M9 7V5a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2m-8 0 1 12a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1l1-12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <svg *ngIf="action === 'view'" viewBox="0 0 24 24" fill="none"><path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><circle cx="12" cy="12" r="2.6" stroke="currentColor" stroke-width="1.6"/></svg>
+            <svg *ngIf="action === 'assign'" viewBox="0 0 24 24" fill="none"><path d="M9 12l2 2 4-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/></svg>
+          </button>
+        </td>
+
+        <td *ngFor="let col of columns">
+          <ng-container [ngSwitch]="col.type ?? 'text'">
+            <app-status-badge *ngSwitchCase="'badge'" [label]="row[col.key]" [tone]="badgeTone(row[col.key])"></app-status-badge>
+
+            <span *ngSwitchCase="'avatar'" class="data-table__avatar">
+              <img [src]="row[col.key]" alt="" />
+            </span>
+
+            <span *ngSwitchCase="'image'" class="data-table__thumb">
+              <img [src]="row[col.key]" alt="" />
+            </span>
+
+            <span *ngSwitchDefault>{{ row[col.key] }}</span>
+          </ng-container>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

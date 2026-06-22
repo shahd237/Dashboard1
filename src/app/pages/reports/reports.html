@@ -1,0 +1,38 @@
+<div class="reports-stats">
+  <div class="report-stat-card" *ngFor="let s of summaryStats">
+    <span class="report-stat-card__label">{{ s.label }}</span>
+    <span class="report-stat-card__value">{{ s.value }}</span>
+    <span class="report-stat-card__change" [class.is-positive]="s.positive" [class.is-negative]="!s.positive">{{ s.change }}</span>
+  </div>
+</div>
+
+<div class="page-grid">
+  <div class="page-card">
+    <h3 class="chart-title">إيرادات الستة أشهر الأخيرة</h3>
+    <div class="bar-chart">
+      <div class="bar-chart__bar-wrap" *ngFor="let b of bars">
+        <div class="bar-chart__bar" [style.height.%]="barHeight(b.value)"></div>
+        <span class="bar-chart__label">{{ b.month }}</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-card donut-wrap">
+    <h3 class="chart-title">توزيع طرق الدفع</h3>
+    <svg class="donut-svg" viewBox="0 0 36 36">
+      <circle cx="18" cy="18" r="15.9" fill="none" stroke="#34c7c1" stroke-width="5.5" stroke-dasharray="30 100" stroke-dashoffset="0" transform="rotate(-90 18 18)"/>
+      <circle cx="18" cy="18" r="15.9" fill="none" stroke="#f5a623" stroke-width="5.5" stroke-dasharray="20 100" stroke-dashoffset="-30" transform="rotate(-90 18 18)"/>
+      <circle cx="18" cy="18" r="15.9" fill="none" stroke="#1b2a52" stroke-width="5.5" stroke-dasharray="50 100" stroke-dashoffset="-50" transform="rotate(-90 18 18)"/>
+    </svg>
+    <ul class="donut-legend">
+      <li><span style="background:#34c7c1"></span>تحويل بنكي 30%</li>
+      <li><span style="background:#f5a623"></span>بطاقة ائتمان 20%</li>
+      <li><span style="background:#1b2a52"></span>نقدي 50%</li>
+    </ul>
+  </div>
+</div>
+
+<div class="page-card">
+  <h3 class="chart-title">ملخص الأداء الشهري</h3>
+  <app-data-table [columns]="columns" [rows]="rows" [actions]="[]"></app-data-table>
+</div>

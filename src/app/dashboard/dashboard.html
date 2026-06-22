@@ -1,0 +1,19 @@
+<div class="dashboard__stats">
+  <app-stat-card
+    *ngFor="let stat of stats"
+    [value]="stat.value"
+    [label]="stat.label"
+    [sublabel]="stat.sublabel"
+    [icon]="stat.icon"
+  ></app-stat-card>
+</div>
+
+<div class="dashboard__row">
+  <app-line-chart-card class="dashboard__col-wide"></app-line-chart-card>
+  <app-activity-list-card class="dashboard__col-narrow"></app-activity-list-card>
+</div>
+
+<div class="dashboard__row">
+  <app-promo-banner-card class="dashboard__col-wide"></app-promo-banner-card>
+  <app-donut-chart-card class="dashboard__col-narrow"></app-donut-chart-card>
+</div>

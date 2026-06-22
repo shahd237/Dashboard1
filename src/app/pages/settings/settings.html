@@ -1,0 +1,73 @@
+<div class="settings-grid">
+  <div class="page-card settings-section">
+    <h3 class="settings-section__title">الملف الشخصي</h3>
+    <div class="form-group">
+      <label>الاسم الكامل</label>
+      <input type="text" [(ngModel)]="profile.name" />
+    </div>
+    <div class="form-group">
+      <label>البريد الإلكتروني</label>
+      <input type="email" [(ngModel)]="profile.email" />
+    </div>
+    <div class="form-group">
+      <label>رقم الهاتف</label>
+      <input type="tel" [(ngModel)]="profile.phone" />
+    </div>
+    <div class="form-group">
+      <label>الدور الوظيفي</label>
+      <input type="text" [(ngModel)]="profile.role" [disabled]="true" />
+    </div>
+    <button class="btn-save" type="button" (click)="saveProfile()">حفظ التغييرات</button>
+  </div>
+
+  <div class="settings-col">
+    <div class="page-card settings-section">
+      <h3 class="settings-section__title">الإشعارات</h3>
+      <ul class="notif-list">
+        <li>
+          <span>طلبات جديدة</span>
+          <button class="toggle-btn" [class.is-on]="notifications.newOrders" (click)="notifications.newOrders = !notifications.newOrders"><span class="toggle-knob"></span></button>
+        </li>
+        <li>
+          <span>تحديثات الفنيين</span>
+          <button class="toggle-btn" [class.is-on]="notifications.techniciansUpdates" (click)="notifications.techniciansUpdates = !notifications.techniciansUpdates"><span class="toggle-knob"></span></button>
+        </li>
+        <li>
+          <span>تنبيهات النظام</span>
+          <button class="toggle-btn" [class.is-on]="notifications.systemAlerts" (click)="notifications.systemAlerts = !notifications.systemAlerts"><span class="toggle-knob"></span></button>
+        </li>
+        <li>
+          <span>العروض التسويقية</span>
+          <button class="toggle-btn" [class.is-on]="notifications.marketing" (click)="notifications.marketing = !notifications.marketing"><span class="toggle-knob"></span></button>
+        </li>
+      </ul>
+    </div>
+
+    <div class="page-card settings-section" style="margin-top:16px">
+      <h3 class="settings-section__title">إعدادات التطبيق</h3>
+      <div class="form-group">
+        <label>اللغة</label>
+        <select [(ngModel)]="appSettings.language">
+          <option value="ar">العربية</option>
+          <option value="en">English</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>العملة</label>
+        <select [(ngModel)]="appSettings.currency">
+          <option value="SAR">ريال سعودي (ر.س)</option>
+          <option value="AED">درهم إماراتي (د.إ)</option>
+          <option value="USD">دولار أمريكي ($)</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>المنطقة الزمنية</label>
+        <select [(ngModel)]="appSettings.timezone">
+          <option value="Asia/Riyadh">الرياض (GMT+3)</option>
+          <option value="Asia/Dubai">دبي (GMT+4)</option>
+          <option value="UTC">UTC (GMT+0)</option>
+        </select>
+      </div>
+    </div>
+  </div>
+</div>

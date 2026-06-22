@@ -1,0 +1,33 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.dashboard__stats {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.dashboard__row {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr;
+  gap: 16px;
+  align-items: stretch;
+}
+
+.dashboard__col-wide,
+.dashboard__col-narrow {
+  display: block;
+  min-width: 0;
+}
+
+@media (max-width: 1024px) {
+  .dashboard__row {
+    grid-template-columns: 1fr;
+  }
+  .dashboard__stats {
+    flex-wrap: wrap;
+  }
+}
