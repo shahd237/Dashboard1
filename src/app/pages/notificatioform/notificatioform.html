@@ -1,0 +1,69 @@
+<div class="notification-create-page" dir="rtl">
+  <h1>إرسال إشعار جديد</h1>
+
+  <form class="notification-form" (ngSubmit)="sendNotification()">
+    <div class="form-grid">
+      <label class="form-field">
+        <span>عنوان الإشعار<span class="required">*</span></span>
+        <input
+          type="text"
+          name="title"
+          placeholder="قم قبول طلب الصيانة"
+          [(ngModel)]="form.title"
+          required
+        />
+      </label>
+
+      <label class="form-field">
+        <span>نوع الإشعار<span class="required">*</span></span>
+        <select name="type" [(ngModel)]="form.type" required>
+          <option value="" disabled>طلب صيانة</option>
+          <option value="maintenance">طلب صيانة</option>
+          <option value="offer">عرض ترويجي</option>
+          <option value="general">إشعار عام</option>
+        </select>
+      </label>
+
+      <label class="form-field">
+        <span>اختر العميل<span class="required">*</span></span>
+        <input
+          type="text"
+          name="client"
+          placeholder="ابحث باسم العميل او رقم الهاتف"
+          [(ngModel)]="form.client"
+          required
+        />
+      </label>
+
+      <label class="form-field">
+        <span>المستلم<span class="required">*</span></span>
+        <select name="receiver" [(ngModel)]="form.receiver" required>
+          <option value="" disabled>عميل محدد</option>
+          <option value="single">عميل محدد</option>
+          <option value="all">جميع العملاء</option>
+        </select>
+      </label>
+
+      <label class="form-field form-field--full">
+        <span>نص الإشعار<span class="required">*</span></span>
+        <textarea
+          name="message"
+          placeholder="اكتب الرسالة التي ستظهر للمستخدم داخل التطبيق"
+          [(ngModel)]="form.message"
+          required
+        ></textarea>
+      </label>
+    </div>
+
+    <div class="form-actions">
+      <button class="send-btn" type="submit" >
+        إرسال الإشعار
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M4 12L20 4L16 20L11 14L4 12Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" />
+        </svg>
+      </button>
+
+      <button class="cancel-btn" type="button" (click)="cancel()">إلغاء</button>
+    </div>
+  </form>
+</div>

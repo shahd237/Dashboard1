@@ -1,0 +1,180 @@
+<div class="page-container" dir="rtl">
+
+    <aside class="sidebar">
+    <!-- Delivery Info Card -->
+    <div class="card sidebar-card">
+      <h3 class="title">بيانات التوصيل</h3>
+      <div class="form-group">
+        <label>المندوب او الفني</label>
+        <div class="select-box">
+          <span>{{deliveryData.technician}}</span>
+          <span class="arrow">⌄</span>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>نوع المركبة</label>
+        <div class="value-box">{{deliveryData.vehicleType}}</div>
+      </div>
+      <div class="form-group">
+        <label>رقم المركبة</label>
+        <div class="value-box">{{deliveryData.vehicleNumber}}</div>
+      </div>
+      <div class="form-group">
+        <label>رقم الهاتف</label>
+        <div class="value-box">{{deliveryData.phone}}</div>
+      </div>
+    </div>
+
+    <!-- Update Status Card -->
+    <div class="card sidebar-card">
+      <h3 class="title">🔄 تحديث حالة الطلب</h3>
+      <div class="form-group">
+        <label>اختر حالة الطلب</label>
+        <div class="select-box">
+          <span>{{updateStatus.status}}</span>
+          <span class="arrow">⌄</span>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>رقم الطلب</label>
+        <div class="value-box">{{updateStatus.orderId}}</div>
+      </div>
+      <div class="form-group">
+        <label>نوع الخدمة</label>
+        <div class="value-box">{{updateStatus.serviceType}}</div>
+      </div>
+      <div class="form-group">
+        <label>تاريخ الطلب</label>
+        <div class="value-box small-text">{{updateStatus.orderDate}}</div>
+      </div>
+    </div>
+  </aside>
+
+  <div class="main-content">
+    <!-- Header Stats Cards -->
+    <div class="header-stats">
+
+          <div class="stat-card">
+          <span class="value">{{orderHeader.device}}</span>
+          <span class="label">نوع الجهاز</span>   
+          </div>
+
+           <div class="stat-card">
+          <span class="value">{{deliveryData.technician}}</span>
+          <span class="label">اسم العميل</span>   
+          </div>
+
+         <div class="stat-card">
+          <span class="value">{{orderHeader.status}}</span>
+          <span class="label">حالة الطلب</span>
+        </div>
+
+      <div class="stat-card">
+        <span class="value">{{orderHeader.date}}</span>
+        <span class="sub-value">{{orderHeader.time}}</span>
+        <span class="label">تاريخ انشاء الطلب</span>
+        
+      </div>
+     
+  
+      
+
+      <button class="back-btn">
+        رجوع <span class="arrow">←</span>
+      </button>
+    </div>
+
+    <!-- Map Tracking Section -->
+    <div class="card map-card">
+      <div class="map-placeholder">
+        <div class="map-overlay">
+          <div class="technician-info">
+             <div class="text">
+              <span class="title">المندوب علي بعد</span>
+              <span class="dist">3.2 كم منك</span>
+             </div>
+            <span class="icon"><i class="fa-solid fa-pen"></i></span>
+          </div>
+        </div>
+        <!-- Simplified SVG Map Representation -->
+         <img src="assets/image/287df9690d5799e1cdcc9ddc63857338a0cd4695.png" width="100%">
+      </div>
+      
+      <div class="tracking-details">
+        <div class="detail-item">
+          <span class="label">وقت الانطلاق <span class="edit-icon">✏️</span></span>
+          <span class="value">{{trackingStats.departureTime}}</span>
+        </div>
+        <div class="detail-item">
+          <span class="label">الوقت المتوقع للوصول <span class="edit-icon">✏️</span></span>
+          <span class="value">{{trackingStats.estimatedArrival}}</span>
+        </div>
+        <div class="detail-item">
+          <span class="label">المسافة المتبقية <span class="edit-icon">✏️</span></span>
+          <span class="value">{{trackingStats.remainingDistance}}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Order Status Timeline -->
+     <main class="page-shell">
+      <section class="order-status" aria-labelledby="order-status-title">
+        <h1 id="order-status-title">حالة الطلب</h1>
+
+        <div class="status-grid" aria-label="مراحل حالة الطلب">
+          <div class="status-step is-done">
+            <span class="status-dot" aria-hidden="true"></span>
+            <span class="status-label">تم إنشاء الطلب</span>
+          </div>
+
+          <div class="status-step is-done">
+            <span class="status-dot" aria-hidden="true"></span>
+            <span class="status-label">تم مراجعة الطلب</span>
+          </div>
+
+          <div class="status-step is-done">
+            <span class="status-dot" aria-hidden="true"></span>
+            <span class="status-label">تم إرسال المندوب</span>
+          </div>
+
+          <div class="status-step is-current">
+            <span class="status-dot" aria-hidden="true"></span>
+            <span class="status-label">المندوب في الطريق إليك</span>
+          </div>
+
+          <div class="status-step is-pending">
+            <span class="status-dot" aria-hidden="true"></span>
+            <span class="status-label">تم استلام الجهاز</span>
+          </div>
+
+          <div class="status-step is-pending">
+            <span class="status-dot" aria-hidden="true"></span>
+            <span class="status-label">وصل الجهاز إلى مركز الصيانة</span>
+          </div>
+
+          <div class="status-step is-pending">
+            <span class="status-dot" aria-hidden="true"></span>
+            <span class="status-label">جاري فحص الجهاز</span>
+          </div>
+
+          <div class="status-step is-pending">
+            <span class="status-dot" aria-hidden="true"></span>
+            <span class="status-label">جاري الإصلاح</span>
+          </div>
+
+          <div class="status-step is-pending">
+            <span class="status-dot" aria-hidden="true"></span>
+            <span class="status-label">في الطريق إليك</span>
+          </div>
+
+          <div class="status-step is-pending">
+            <span class="status-dot" aria-hidden="true"></span>
+            <span class="status-label">تم التسليم</span>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  
+</div>

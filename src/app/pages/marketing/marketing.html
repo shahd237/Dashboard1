@@ -1,38 +1,158 @@
-<div class="page-card">
-  <div class="form-header">
-    <h3>إضافة عرض جديد</h3>
-  </div>
-  <div class="marketing-form">
-    <div class="upload-area">
-      <div class="upload-circle">
-        <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="1.5"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-        <span>إضافة صورة</span>
-      </div>
+<div class="offers-page" dir="rtl">
+  <div class="offers-toolbar">
+    <div class="search-box">
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="1.7" />
+        <path
+          d="M16.5 16.5L21 21"
+          stroke="currentColor"
+          stroke-width="1.7"
+          stroke-linecap="round"
+        />
+      </svg>
+      <input type="search" placeholder="ابحث بعنوان العرض" [(ngModel)]="searchTerm" />
     </div>
-    <div class="form-body">
-      <div class="form-row">
-        <div class="form-group"><label>عنوان العرض</label><input [(ngModel)]="form.titleAr" placeholder="أدخل عنوان العرض" /></div>
-        <div class="form-group"><label>نوع العرض</label>
-          <select [(ngModel)]="form.type">
-            <option value="">اختر نوع العرض</option>
-            <option *ngFor="let t of offerTypes">{{ t }}</option>
-          </select>
-        </div>
-      </div>
-      <div class="form-group full"><label>وصف العرض</label><textarea [(ngModel)]="form.description" rows="4" placeholder="اكتب وصف العرض..."></textarea></div>
-      <div class="form-group full"><label>نسبة الخصم</label><input [(ngModel)]="form.discount" placeholder="مثال: 20%" /></div>
-      <div class="form-row">
-        <div class="form-group"><label>تاريخ بداية العرض</label><input type="date" [(ngModel)]="form.startDate" /></div>
-        <div class="form-group"><label>تاريخ نهاية العرض</label><input type="date" [(ngModel)]="form.endDate" /></div>
-      </div>
-      <div class="form-group">
-        <label>حالة العرض</label>
-        <div class="radio-group">
-          <label class="radio-opt"><input type="radio" [(ngModel)]="form.status" value="نشط" /> نشط</label>
-          <label class="radio-opt"><input type="radio" [(ngModel)]="form.status" value="غير نشط" /> غير نشط</label>
-        </div>
-      </div>
-      <button class="btn-submit" type="button" (click)="submit()">رفع العرض</button>
-    </div>
+
+    <button
+      class="filter-btn"
+      type="button"
+      [class.is-active]="activeFilter === 'all'"
+      (click)="setFilter('all')"
+    >
+      إجمالي العروض
+    </button>
+
+    <button
+      class="filter-btn"
+      type="button"
+      [class.is-active]="activeFilter === 'active'"
+      (click)="setFilter('active')"
+    >
+      العروض النشطة
+    </button>
+
+    <button
+      class="filter-btn"
+      type="button"
+      [class.is-active]="activeFilter === 'expired'"
+      (click)="setFilter('expired')"
+    >
+      العروض المنتهية
+    </button>
+
+    <button class="add-btn" type="button" (click)="openNewOffer()">
+      <span aria-hidden="true">+</span>
+      إرسال عرض جديد
+    </button>
   </div>
+
+  <div class="offers-table-wrap">
+    <table class="offers-table">
+      <thead>
+        <tr>
+          <th>عنوان العرض</th>
+          <th>نوع العرض</th>
+          <th>خصم %</th>
+          <th>تاريخ البداية</th>
+          <th>تاريخ النهاية</th>
+          <th>الحالة</th>
+          <th>الأجراءات</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let offer of pagedOffers">
+          <td>{{ offer.title }}</td>
+          <td>{{ offer.type }}</td>
+          <td>{{ offer.discount }}%</td>
+          <td>{{ offer.startDate }}</td>
+          <td>{{ offer.endDate }}</td>
+          <td>
+            <button
+              class="status-toggle"
+              type="button"
+              [class.is-on]="offer.active"
+              [attr.aria-pressed]="offer.active"
+              (click)="toggleOffer(offer)"
+            >
+              <span></span>
+            </button>
+          </td>
+          <td>
+            <div class="actions">
+              <button class="icon-btn edit-btn" type="button" aria-label="تعديل" (click)="openEditOffer(offer)">
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path
+                    d="M4 20h4L18.5 9.5a2.1 2.1 0 0 0 0-3L17.5 5.5a2.1 2.1 0 0 0-3 0L4 16v4Z"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linejoin="round"
+                  />
+                  <path
+                    d="M13.5 6.5l4 4"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                  />
+                </svg>
+              </button>
+
+              <button
+                class="icon-btn delete-btn"
+                type="button"
+                aria-label="حذف"
+                (click)="deleteOffer(offer)"
+              >
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path
+                    d="M6 7h12M10 7V5h4v2M8 10v9h8v-9"
+                    stroke="currentColor"
+                    stroke-width="1.8"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                  <path
+                    d="M11 12v5M13 12v5"
+                    stroke="currentColor"
+                    stroke-width="1.8"
+                    stroke-linecap="round"
+                  />
+                </svg>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <nav class="pagination" aria-label="Pagination">
+    <button
+      type="button"
+      class="page-btn page-btn--wide"
+      [disabled]="currentPage === totalPages"
+      (click)="nextPage()"
+    >
+      التالي
+    </button>
+
+    <button
+      type="button"
+      class="page-btn"
+      *ngFor="let page of pages"
+      [class.is-active]="page === currentPage"
+      (click)="goToPage(page)"
+    >
+      {{ page }}
+    </button>
+
+    <button
+      type="button"
+      class="page-btn page-btn--wide"
+      [disabled]="currentPage === 1"
+      (click)="previousPage()"
+    >
+      السابق
+    </button>
+  </nav>
 </div>

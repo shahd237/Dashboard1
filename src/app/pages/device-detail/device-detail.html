@@ -1,154 +1,108 @@
 <div class="page-grid">
-  <!-- LEFT: Device Preview Panel -->
-  <div class="page-card preview-panel">
-    <div class="preview-header">
-      <a routerLink="/devices" class="back-link">← رجوع</a>
-      <h3>تفاصيل الهاتف</h3>
-    </div>
-
-    <div class="preview-hero">
-      <div class="preview-image">
-        <svg viewBox="0 0 120 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect x="8" y="4" width="104" height="192" rx="16" fill="#f0f0f2" stroke="#ccc" stroke-width="2"/>
-          <rect x="16" y="16" width="88" height="152" rx="8" fill="#dde3f8"/>
-          <rect x="36" y="6" width="48" height="8" rx="4" fill="#b0b0b8"/>
-          <circle cx="60" cy="180" r="8" fill="#ccc"/>
-          <text x="60" y="85" text-anchor="middle" font-size="11" fill="#2e4ec0" font-weight="bold">iPhone</text>
-          <text x="60" y="100" text-anchor="middle" font-size="9" fill="#666">15 Pro</text>
-        </svg>
-      </div>
-      <div class="preview-meta">
-        <span class="preview-badge">جديد</span>
-        <h2>{{ device.model }}</h2>
-        <div class="preview-rating">
-          <span *ngFor="let s of [1,2,3,4,5]">
-            <svg viewBox="0 0 14 14" [attr.fill]="s <= device.rating ? '#f0b429' : '#ddd'" width="14" height="14"><path d="M7 1l1.6 3.3 3.6.5-2.6 2.5.6 3.6L7 9.3l-3.2 1.6.6-3.6L1.8 4.8l3.6-.5L7 1Z"/></svg>
-          </span>
-          <span class="rating-num">{{ device.rating }}</span>
-        </div>
-        <div class="preview-storage">{{ device.storage }}</div>
-      </div>
-    </div>
-
-    <div class="preview-section">
-      <h4>الألوان المتاحة</h4>
-      <div class="color-swatches">
-        <button *ngFor="let c of colors" class="color-swatch"
-          [style.background]="c" [class.is-selected]="c === selectedColor"
-          (click)="selectedColor = c"></button>
-      </div>
-    </div>
-
-    <div class="preview-section">
-      <p class="device-desc">{{ device.description }}</p>
-    </div>
-
-    <div class="preview-section">
-      <h4>المواصفات الأساسية</h4>
-      <div class="specs-grid">
-        <div class="spec-item" *ngFor="let s of specs">
-          <span class="spec-label">{{ s.label }}</span>
-          <span class="spec-value">{{ s.value }}</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="preview-section pros-cons">
-      <div class="pros">
-        <h4 class="pros-title">المميزات</h4>
-        <ul>
-          <li *ngFor="let p of pros"><span class="dot green"></span>{{ p }}</li>
-        </ul>
-      </div>
-      <div class="cons">
-        <h4 class="cons-title">العيوب</h4>
-        <ul>
-          <li *ngFor="let c of cons"><span class="dot red"></span>{{ c }}</li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="preview-section">
-      <h4>تقييمات المستخدمين <span class="rating-count">41</span></h4>
-      <div class="rating-bars">
-        <div *ngFor="let r of ratings" class="rating-bar-row">
-          <span class="rating-bar-label">{{ r.label }}</span>
-          <div class="rating-bar-track">
-            <div class="rating-bar-fill" [style.width.%]="r.pct"></div>
-          </div>
-          <span class="rating-bar-pct">{{ r.pct }}%</span>
-        </div>
-      </div>
-    </div>
-
-    <button class="btn-save-full" type="button" (click)="save()">حفظ التغييرات</button>
-  </div>
-
-  <!-- RIGHT: Edit Form -->
+  <!-- LEFT: Edit Form -->
   <div class="page-card edit-panel">
     <div class="edit-header">
       <a routerLink="/devices" class="back-link">← رجوع</a>
-      <h3>تعديل هاتف</h3>
+      <h3 style="color: #1c408a">تعديل هاتف</h3>
     </div>
 
     <div class="edit-form">
       <div class="form-row">
-        <div class="form-group"><label>اسم الموديل</label><input [(ngModel)]="device.model" /></div>
-        <div class="form-group"><label>الفئة</label><input [(ngModel)]="device.category" /></div>
+        <div class="form-group"><label>اسم الهاتف</label><input [(ngModel)]="device.model" /></div>
+        <div class="form-group">
+          <label>العلامة التجارية</label><input [(ngModel)]="device.category" />
+        </div>
       </div>
 
       <div class="form-group form-group--colors">
         <label>صور الهواتف</label>
         <div class="phone-variants">
-          <div class="phone-variant" *ngFor="let c of colors; let i = index" [style.borderColor]="c === selectedColor ? c : 'transparent'" (click)="selectedColor = c">
-            <svg viewBox="0 0 36 60" fill="none" width="26" height="42">
-              <rect x="2" y="2" width="32" height="56" rx="5" [attr.fill]="c" fill-opacity="0.25" stroke="#aaa" stroke-width="1.5"/>
-              <rect x="7" y="10" width="22" height="32" rx="2" fill="white" fill-opacity="0.5"/>
-              <circle cx="18" cy="52" r="2.5" fill="#999"/>
-            </svg>
-          </div>
           <div class="phone-variant add-variant">
-            <svg viewBox="0 0 24 24" fill="none" width="22" height="22"><path d="M12 5v14M5 12h14" stroke="#aaa" stroke-width="2" stroke-linecap="round"/></svg>
+            <svg viewBox="0 0 24 24" fill="none" width="22" height="22">
+              <path d="M12 5v14M5 12h14" stroke="#aaa" stroke-width="2" stroke-linecap="round" />
+            </svg>
             <span>إضافة صورة</span>
+          </div>
+
+          <div class="phone-variant">
+            <img
+              src="assets/image/9a93d65294579f901db784097f8324e9adc14507.png"
+              width="200"
+              height="70"
+            />
+          </div>
+          <div>
+            <div class="form-row">
+              <div class="form-group">
+                <label>التقييم</label><input type="number" [(ngModel)]="device.price" />
+              </div>
+            </div>
           </div>
         </div>
       </div>
 
       <div class="form-row">
-        <div class="form-group"><label>السعر</label><input type="number" [(ngModel)]="device.price" /></div>
-        <div class="form-group"><label>الضمان (شهر)</label><input type="number" [(ngModel)]="device.warranty" /></div>
+        <div class="form-group">
+          <label>السعر</label><input type="number" [(ngModel)]="device.price" />
+        </div>
+        <div class="form-group">
+          <label>الكمية</label><input type="number" [(ngModel)]="device.warranty" />
+        </div>
       </div>
 
-      <div class="form-group">
+      <div class="form-row">
+        <div class="form-group">
+          <label>السعة التخزينية</label><input type="number" [(ngModel)]="device.price" />
+        </div>
+        <div class="form-group">
+          <label>الحالة</label><input type="number" [(ngModel)]="device.warranty" />
+        </div>
+      </div>
+
+      <!-- <div class="form-group">
         <label>خيارات التخزين المتاحة</label>
         <div class="storage-options">
           <button *ngFor="let s of storageOptions" class="storage-btn"
             [class.is-selected]="s === selectedStorage"
             (click)="selectedStorage = s">{{ s }}</button>
         </div>
-      </div>
+      </div> -->
 
-      <div class="form-row">
+      <!-- <div class="form-row">
         <div class="form-group"><label>المعالج</label><input [(ngModel)]="device.processor" /></div>
         <div class="form-group"><label>الذاكرة RAM</label><input [(ngModel)]="device.ram" /></div>
-      </div>
+      </div> -->
 
       <div class="form-group">
         <label>الوصف</label>
-        <textarea [(ngModel)]="device.description" rows="3"></textarea>
+        <input type="text" />
       </div>
 
-      <div class="form-group">
+      <div class="specs-container">
+        <h3 class="specs-title">المواصفات الأساسية</h3>
+        <div class="specifications-grid">
+          <div class="specification-item">الكاميرا الامامية</div>
+          <div class="specification-item">الكاميرا الخلفية</div>
+          <div class="specification-item">المعالج</div>
+          <div class="specification-item">الشاشة</div>
+          <div class="specification-item">نظام التشغيل</div>
+          <div class="specification-item">البطارية</div>
+          <div class="specification-item">الذاكرة</div>
+          <div class="specification-item">التخزين الداخلي</div>
+        </div>
+      </div>
+
+      <!-- <div class="form-group">
         <label>تاريخ الإصدار</label>
         <div class="date-check"><input type="date" /><label class="checkbox-opt"><input type="checkbox" /> بدون تاريخ انتهاء</label></div>
-      </div>
-
+      </div> -->
+      <!-- 
       <div class="form-group">
         <label>سبب الإلغاء</label>
         <textarea rows="2" placeholder="اكتب سبب الإلغاء إن وجد..."></textarea>
-      </div>
+      </div> -->
 
-      <div class="section-title">الطلبات المرتبطة</div>
+      <!-- <div class="section-title">الطلبات المرتبطة</div>
       <div class="repair-orders">
         <table>
           <thead><tr><th>رقم الطلب</th><th>التاريخ</th><th>العطل</th><th>السعر</th><th>الحالة</th></tr></thead>
@@ -160,9 +114,356 @@
             </tr>
           </tbody>
         </table>
+      </div> -->
+
+      <div class="row">
+        <div class="form-group">
+          <label>المميزات</label>
+          <input type="text" />
+        </div>
+        <div class="form-group">
+          <label>العيوب</label>
+          <input type="text" />
+        </div>
       </div>
 
       <button class="btn-save" type="button" (click)="save()">حفظ التغييرات</button>
     </div>
+  </div>
+
+  <!-- RIGHT: Device Preview Panel -->
+  <div class="page-card preview-panel">
+    <div class="preview-header">
+      <a routerLink="/devices" class="back-link">← رجوع</a>
+      <h3>تفاصيل الهاتف</h3>
+    </div>
+
+    <div class="preview-hero">
+      <div class="preview-image">
+        <img
+          src="assets/image/5fabfc1462d2bdb6cc68d2cbc9e56a32063105ff.png"
+          alt=""
+          width="120"
+          height="130"
+        />
+      </div>
+
+      <div class="preview-meta">
+        <span class="preview-badge">جديد</span>
+        <h2 style="color: #053d7b">{{ device.model }}</h2>
+        <div class="preview-storage">{{ device.storage }}</div>
+        <div class="preview-rating">
+          <span *ngFor="let s of [1, 2, 3, 4, 5]">
+            <svg
+              viewBox="0 0 14 14"
+              [attr.fill]="s <= device.rating ? '#f0b429' : '#ddd'"
+              width="14"
+              height="14"
+            >
+              <path d="M7 1l1.6 3.3 3.6.5-2.6 2.5.6 3.6L7 9.3l-3.2 1.6.6-3.6L1.8 4.8l3.6-.5L7 1Z" />
+            </svg>
+          </span>
+          <span class="rating-num">{{ device.rating }}</span>
+        </div>
+        <div class="preview-price">{{ device.price }}</div>
+      </div>
+    </div>
+
+    <div class="product-detail-container">
+      <!-- Color Selection Section -->
+      <div class="color-selection-section">
+        <h3 class="section-title">اختر اللون</h3>
+        <div class="color-options">
+          <div class="color-option">
+            <span class="color-dot" style="background-color: blue"></span>
+            <span class="color-name">ازرق</span>
+          </div>
+          <div class="color-option">
+            <span class="color-dot" style="background-color: red"></span>
+            <span class="color-name">احمر</span>
+          </div>
+          <div class="color-option">
+            <span class="color-dot" style="background-color: black"></span>
+            <span class="color-name">اسود</span>
+          </div>
+          <div class="color-option selected">
+            <span class="color-dot" style="background-color: #f0c0c0"></span>
+            <span class="color-name">روز</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Description Section -->
+      <div class="description-section card">
+        <h3 class="section-title">الوصف</h3>
+        <p>
+          {{ device.description }}
+        </p>
+      </div>
+
+      <!-- Main Specifications Section -->
+      <div class="main-specifications-section card">
+        <h3 class="section-title">المواصفات الرئيسية</h3>
+        <div class="specifications-grid">
+          <div class="spec-item">
+            <svg
+              viewBox="0 0 24 24"
+              width="24"
+              height="24"
+              fill="none"
+              stroke="#053d7b"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M4 7h16v12H4z" />
+              <circle cx="12" cy="13" r="3" />
+              <path d="M8 7l2-3h4l2 3" />
+            </svg>
+            <span class="spec-value" style="color:#275991">12 Mp</span>
+            <span class="spec-label" style="color:#275991">الكاميرا الامامية</span>
+          </div>
+          <div class="spec-item">
+            <svg
+              viewBox="0 0 24 24"
+              width="24"
+              height="24"
+              fill="none"
+              stroke="#053d7b"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <rect x="4" y="6" width="16" height="12" rx="2" />
+              <circle cx="12" cy="13" r="3" />
+              <path d="M16 6l-1.5 3.5" />
+              <path d="M8 6l1.5 3.5" />
+            </svg>
+            <span class="spec-value" style="color:#275991">48 Mp +12MP</span>
+            <span class="spec-label" style="color:#275991">الكاميرا الخلفية</span>
+          </div>
+          <div class="spec-item">
+            <svg
+              viewBox="0 0 24 24"
+              width="24"
+              height="24"
+              fill="none"
+              stroke="#053d7b"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <rect x="6" y="5" width="12" height="14" rx="3" />
+              <path d="M9 9h6" />
+              <path d="M9 13h6" />
+              <path d="M9 17h6" />
+            </svg>
+            <span class="spec-value" style="color:#275991">A16 Bionic</span>
+            <span class="spec-label" style="color:#275991">المعالج</span>
+          </div>
+          <div class="spec-item">
+            <svg
+              viewBox="0 0 24 24"
+              width="24"
+              height="24"
+              fill="none"
+              stroke="#053d7b"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <rect x="6" y="3" width="12" height="18" rx="3" />
+              <path d="M9 7h6" />
+              <path d="M12 18v.01" />
+            </svg>
+            <span class="spec-value" style="color:#275991">6.1 بوصة</span>
+            <span class="spec-label" style="color:#275991">الشاشة</span>
+          </div>
+
+          <div class="spec-item">
+            <svg
+              viewBox="0 0 24 24"
+              width="24"
+              height="24"
+              fill="none"
+              stroke="#053d7b"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M4 7h16v10H4z" />
+              <path d="M7 7v10" />
+              <path d="M12 7v10" />
+              <path d="M17 7v10" />
+            </svg>
+            <span class="spec-value" style="color:#275991">iOS 17</span>
+            <span class="spec-label" style="color:#275991">نظام التشغيل</span>
+          </div>
+          <div class="spec-item">
+            <svg
+              viewBox="0 0 24 24"
+              width="24"
+              height="24"
+              fill="none"
+              stroke="#053d7b"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M7 7h10v10H7z" />
+              <path d="M7 11h10" />
+              <path d="M11 7v10" />
+            </svg>
+            <span class="spec-value" style="color:#275991">3349 mAh</span>
+            <span class="spec-label" style="color:#275991">البطارية</span>
+          </div>
+
+          <div class="spec-item">
+            <svg
+              viewBox="0 0 24 24"
+              width="24"
+              height="24"
+              fill="none"
+              stroke="#053d7b"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <rect x="5" y="7" width="14" height="10" rx="2" />
+              <path d="M7 11h10" />
+            </svg>
+            <span class="spec-value" style="color:#275991">6GB</span>
+            <span class="spec-label" style="color:#275991">الذاكرة [RAM]</span>
+          </div>
+
+          <div class="spec-item">
+            <svg
+              viewBox="0 0 24 24"
+              width="24"
+              height="24"
+              fill="none"
+              stroke="#053d7b"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M5 8h14v8H5z" />
+              <path d="M8 12h8" />
+              <path d="M8 16h8" />
+            </svg>
+            <span class="spec-value" style="color:#275991">256 GB</span>
+            <span class="spec-label" style="color:#275991">التخزين الداخلي</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pros and Cons Section -->
+      <div class="pros-cons-section">
+        <div class="pros-card card">
+          <h3 class="section-title pros-title">المميزات</h3>
+          <ul>
+            <li><span class="icon-circle green"></span>أداء قوي وسريع بمعالج A16 Bionic</li>
+            <li><span class="icon-circle green"></span>كاميرا 48MP عالية الجودة</li>
+            <li><span class="icon-circle green"></span>شاشة OLED ممتازة الألوان والوضوح</li>
+            <li><span class="icon-circle green"></span>يدعم Dynamic Island</li>
+            <li><span class="icon-circle green"></span>منفذ USB-C لسرعة وسهولة التوصيل</li>
+          </ul>
+        </div>
+        <div class="cons-card card">
+          <h3 class="section-title cons-title">العيوب</h3>
+          <ul>
+            <li><span class="icon-circle red"></span>معدل تحديث 60HZ فقط</li>
+            <li><span class="icon-circle red"></span>لا يدعم التقريب البصري 5x</li>
+            <li><span class="icon-circle red"></span>سرعة الشحن أقل من بعض المنافسين</li>
+            <li><span class="icon-circle red"></span>لا يوجد شاحن داخل العلبة</li>
+            <li><span class="icon-circle red"></span>لا يدعم زيادة الذاكرة الخارجية (MicroSD)</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Box Contents Section -->
+      <div class="box-contents-section card">
+        <h3 class="section-title">محتويات العلبة</h3>
+        <div class="contents-grid">
+           <div class="content-item">
+            <svg
+              viewBox="0 0 24 24"
+              width="28"
+              height="28"
+              fill="none"
+              stroke="#053d7b"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M10 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z" />
+              <path d="M12 18v.01" />
+            </svg>
+            <span class="content-label">الهاتف</span>
+          </div>
+
+             <div class="content-item">
+            <svg
+              viewBox="0 0 24 24"
+              width="28"
+              height="28"
+              fill="none"
+              stroke="#053d7b"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M8 5h8v14H8z" />
+              <path d="M10 5v14" />
+              <path d="M14 7v10" />
+            </svg>
+            <span class="content-label">USB-C</span>
+          </div>
+
+            <div class="content-item">
+            <svg
+              viewBox="0 0 24 24"
+              width="28"
+              height="28"
+              fill="none"
+              stroke="#053d7b"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <rect x="5" y="5" width="14" height="14" rx="2" />
+              <path d="M7 9h10" />
+              <path d="M7 13h10" />
+              <path d="M7 17h10" />
+            </svg>
+            <span class="content-label">دليل الاستخدام</span>
+          </div>
+         
+
+
+          <div class="content-item">
+            <svg
+              viewBox="0 0 24 24"
+              width="28"
+              height="28"
+              fill="none"
+              stroke="#053d7b"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M5 7h14l-2 12H7L5 7z" />
+              <path d="M8 7v-2h8v2" />
+              <path d="M11 13h2" />
+            </svg>
+            <span class="content-label">بطاقة الضمان</span>
+          </div>
+        
+         
+        </div>
+      </div>
+    </div>
+
+    <button class="btn-save-full" type="button" (click)="save()">عرض في التطبيق</button>
   </div>
 </div>

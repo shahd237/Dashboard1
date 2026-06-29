@@ -11,14 +11,7 @@
   </div>
 
   <div class="donut-card__body">
-    <ul class="donut-card__legend">
-      <li *ngFor="let seg of segments">
-        <span class="donut-card__dot" [style.background]="seg.color"></span>
-        <span>{{ seg.label }}</span>
-      </li>
-    </ul>
-
-    <div class="donut-card__chart">
+     <div class="donut-card__chart">
       <svg viewBox="0 0 36 36">
         <circle
           *ngFor="let seg of segments"
@@ -32,9 +25,17 @@
         ></circle>
       </svg>
       <div class="donut-card__center">
-        <span class="donut-card__center-main">AED</span>
-        <span class="donut-card__center-sub">الإيرادات</span>
+        <span class="donut-card__center-main">602</span>
+        <span class="donut-card__center-sub">إجمالي الطلبات</span>
       </div>
     </div>
+    <ul class="donut-card__legend">
+      <li *ngFor="let seg of segments">
+        <span class="donut-card__dot" [style.background]="seg.color"></span>
+        <span>{{ seg.label }} {{ seg.value }}</span>
+      </li>
+    </ul>
+
+   
   </div>
 </div>

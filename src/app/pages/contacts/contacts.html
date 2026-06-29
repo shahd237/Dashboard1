@@ -1,42 +1,106 @@
-<div class="chat-layout">
-  <div class="chat-list">
-    <div class="chat-list__search">
-      <svg viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="6.5" stroke="currentColor" stroke-width="1.8"/><path d="M20 20l-4.3-4.3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
-      <input type="text" placeholder="بحث في المحادثات..." />
-    </div>
-    <ul>
-      <li *ngFor="let conv of conversations" [class.is-active]="conv.id === activeId" (click)="selectConversation(conv.id)">
-        <div class="chat-list__avatar">{{ conv.name.charAt(0) }}</div>
-        <div class="chat-list__meta">
-          <span class="chat-list__name">{{ conv.name }}</span>
-          <span class="chat-list__last">{{ conv.lastMsg }}</span>
-        </div>
-        <div class="chat-list__right">
-          <span class="chat-list__time">{{ conv.time }}</span>
-          <span *ngIf="conv.unread" class="chat-list__badge">{{ conv.unread }}</span>
-        </div>
-      </li>
-    </ul>
-  </div>
+<div class="support-page" dir="rtl">
+  <aside class="tickets-panel">
+    <div class="tickets-toolbar">
+      <div class="search-box">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="1.7" />
+          <path d="M16.5 16.5L21 21" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" />
+        </svg>
+        <input type="search" placeholder="ابحث عن محادثة" [(ngModel)]="searchTerm" />
+      </div>
 
-  <div class="chat-window">
-    <div class="chat-window__header">
-      <div class="chat-window__avatar">{{ activeConversation?.name?.charAt(0) }}</div>
-      <span class="chat-window__name">{{ activeConversation?.name }}</span>
+      <button class="filter-btn" type="button">
+        تصفية
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M4 7h16M7 12h10M10 17h4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+        </svg>
+      </button>
     </div>
 
-    <div class="chat-window__messages">
-      <div *ngFor="let msg of activeMessages" class="chat-msg" [class.is-admin]="msg.from === 'admin'">
-        <div class="chat-msg__bubble">{{ msg.text }}</div>
-        <span class="chat-msg__time">{{ msg.time }}</span>
+    <div class="status-tabs">
+      <button
+        type="button"
+        class="tab-btn"
+        *ngFor="let tab of tabs"
+        [class.is-active]="tab.key === activeTab"
+        (click)="setTab(tab.key)"
+      >
+        <span>{{ tab.label }}</span>
+        <strong>{{ tab.count }}</strong>
+      </button>
+    </div>
+
+    <div class="tickets-list">
+      <button
+        type="button"
+        class="ticket-card"
+        *ngFor="let ticket of filteredTickets"
+        [class.is-selected]="ticket.id === selectedTicket.id"
+        (click)="selectTicket(ticket)"
+      >
+        <img class="ticket-avatar" [src]="ticket.avatar" [alt]="ticket.name" />
+
+        <div class="ticket-content">
+          <h3>{{ ticket.name }}</h3>
+          <p>{{ ticket.message }}</p>
+          <span>{{ ticket.time }}</span>
+        </div>
+
+        <span class="ticket-badge" [ngClass]="'ticket-badge--' + ticket.status">
+          {{ ticket.statusLabel }}
+        </span>
+      </button>
+    </div>
+  </aside>
+
+  <section class="chat-panel">
+    <header class="chat-header">
+      <div class="chat-user">
+        <img [src]="selectedTicket.avatar" [alt]="selectedTicket.name" />
+        <h2>{{ selectedTicket.name }}</h2>
+      </div>
+
+      <button class="back-btn" type="button">
+        <span aria-hidden="true">‹</span>
+        رجوع
+      </button>
+    </header>
+
+    <div class="messages">
+      <div
+        class="message-row"
+        *ngFor="let message of messages"
+        [class.is-agent]="message.from === 'agent'"
+        [class.is-client]="message.from === 'client'"
+      >
+        <div class="message-bubble">
+          <p>{{ message.text }}</p>
+          <time>{{ message.time }}</time>
+          <span class="seen" *ngIf="message.from === 'agent'">✓✓</span>
+        </div>
       </div>
     </div>
 
-    <div class="chat-window__input">
-      <input type="text" placeholder="اكتب رسالة..." [(ngModel)]="newMessage" (keydown.enter)="send()" />
-      <button class="chat-window__send" type="button" (click)="send()">
-        <svg viewBox="0 0 24 24" fill="none"><path d="M22 2L11 13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M22 2L15 22l-4-9-9-4 20-7Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <form class="chat-input" (ngSubmit)="sendMessage()">
+      <button class="send-btn" type="submit" aria-label="إرسال">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M4 12L20 4L16 20L11 14L4 12Z" fill="currentColor" />
+        </svg>
       </button>
-    </div>
-  </div>
+
+      <label class="message-field">
+        <input type="text" placeholder="اكتب رسالتك...." [(ngModel)]="draftMessage" name="message" />
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M12 3v10a4 4 0 0 0 8 0V6a3 3 0 0 0-6 0v7a2 2 0 0 0 4 0V7" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" />
+          <path d="M5 11v2a7 7 0 0 0 14 0v-2M12 20v2" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" />
+        </svg>
+      </label>
+
+      <button class="attach-btn" type="button" aria-label="إرفاق ملف">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M8 13.5l6.9-6.9a3 3 0 0 1 4.2 4.2l-8.4 8.4a5 5 0 0 1-7.1-7.1L12 3.7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+      </button>
+    </form>
+  </section>
 </div>

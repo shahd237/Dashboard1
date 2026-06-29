@@ -1,0 +1,152 @@
+
+<div class="page-container" dir="ltr">
+  <div class="main-content">
+    <div class="card inspection-card">
+      <div class="header">
+        <button class="back-btn" (click)="goBack()">
+          <span class="arrow">→</span> رجوع
+        </button>
+        <h2 class="title">تفاصيل نتيجة الفحص</h2>
+      </div>
+
+      <div class="form-grid" dir="rtl">
+        <!-- Discovered Problem -->
+        <div class="form-group full-width">
+          <label>المشكلة المكتشفة</label>
+          <input type="text" [(ngModel)]="inspectionResult.discoveredProblem" placeholder="تغيير شاشة">
+        </div>
+
+        <!-- Repair Duration -->
+        <div class="form-group">
+          <label>مدة الاصلاح</label>
+          <input type="text" [(ngModel)]="inspectionResult.repairDuration" placeholder="يومين">
+        </div>
+
+        <!-- Estimated Cost -->
+        <div class="form-group">
+          <label>التكلفة التقديرية (جنية)</label>
+          <input type="text" [(ngModel)]="inspectionResult.estimatedCost" placeholder="800">
+        </div>
+
+        <!-- Repair Location Selection -->
+        <div class="form-group full-width">
+          <label>مكان الاصلاح</label>
+          <div class="location-options">
+            <div class="location-card" [class.selected]="inspectionResult.repairLocation === 'inside'" (click)="inspectionResult.repairLocation = 'inside'">
+              <div class="radio-circle" [class.checked]="inspectionResult.repairLocation === 'inside'"></div>
+              <div class="text-content">
+                <span class="main-text">داخل المركز</span>
+                <span class="sub-text">سيتم اصلاح الجهاز داخل مركز الصيانة</span>
+              </div>
+            </div>
+            <div class="location-card" [class.selected]="inspectionResult.repairLocation === 'home'" (click)="inspectionResult.repairLocation = 'home'">
+              <div class="radio-circle" [class.checked]="inspectionResult.repairLocation === 'home'"></div>
+              <div class="text-content">
+                <span class="main-text">فني منزلي</span>
+                <span class="sub-text">سيتم ارسال فني الى عنوانك</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Receipt Method -->
+        <div class="form-group">
+          <label>طريقة الاستلام</label>
+          <input type="text" [(ngModel)]="inspectionResult.receiptMethod" placeholder="سيتم ارسال مندوب لاستلام الجهاز من عنوانك ونقله الى مركز الصيانة">
+        </div>
+
+        <!-- Responsible Technician -->
+        <div class="form-group">
+          <label>الفني المسؤول</label>
+          <input type="text" [(ngModel)]="inspectionResult.technician" placeholder="أحمد علي">
+        </div>
+
+        <!-- Device Type -->
+        <div class="form-group">
+          <label>نوع الجهاز</label>
+          <input type="text" [(ngModel)]="inspectionResult.deviceType" placeholder="Iphone 13">
+        </div>
+
+        <!-- Receipt Date -->
+        <div class="form-group">
+          <label>موعد استلام الجهاز</label>
+          <input type="text" [(ngModel)]="inspectionResult.receiptDate" placeholder="15 يونيو - 5 مساءً">
+        </div>
+
+        <!-- Receipt Address -->
+        <div class="form-group">
+          <label>عنوان الاستلام</label>
+          <input type="text" [(ngModel)]="inspectionResult.receiptAddress" placeholder="شارع صلاح سالم، أمام مستشفى الجامعة، بني سويف">
+        </div>
+
+        <!-- Payment Method -->
+        <div class="form-group">
+          <label>طريقة الدفع</label>
+          <input type="text" [(ngModel)]="inspectionResult.paymentMethod" placeholder="كاش عند الاستلام">
+        </div>
+
+        <!-- Total Cost -->
+        <div class="form-group full-width">
+          <label>اجمالي التكلفة</label>
+          <input type="text" [(ngModel)]="inspectionResult.totalCost" placeholder="600 جنية">
+        </div>
+      </div>
+
+      <div class="actions">
+          <button class="cancel-btn" (click)="onCancel()">إلغاء</button>
+        <button class="save-btn" (click)="onSave()">حفظ نتيجة الفحص</button>
+      </div>
+    </div>
+
+    <button class="update-status-btn" (click)="onUpdateStatus()">تحديث الحالة</button>
+  </div>
+
+  <aside class="sidebar">
+    <div class="card order-info-card">
+      <h2 class="title">بيانات الطلب</h2>
+
+      <div class="info-group">
+        <label>رقم الطلب</label>
+        <div class="info-value">{{orderData.orderNumber}}</div>
+      </div>
+
+      <div class="info-group">
+        <label>اسم العميل</label>
+        <div class="info-value">{{orderData.customerName}}</div>
+      </div>
+
+      <div class="info-group">
+        <label>رقم الهاتف</label>
+        <div class="info-value">{{orderData.phoneNumber}}</div>
+      </div>
+
+      <div class="info-group">
+        <label>نوع الهاتف</label>
+        <div class="info-value">{{orderData.phoneType}}</div>
+      </div>
+
+      <div class="info-group">
+        <label>موديل الهاتف</label>
+        <div class="info-value">{{orderData.phoneModel}}</div>
+      </div>
+
+      <div class="info-group">
+        <label>المشكلة المكتشفة</label>
+        <div class="info-value">{{orderData.discoveredProblem}}</div>
+      </div>
+
+      <div class="info-group">
+        <label>وصف المشكلة</label>
+        <div class="info-value">{{orderData.problemDescription}}</div>
+      </div>
+
+      <div class="info-group">
+        <label>صوره المشكلة</label>
+        <div class="image-container">
+          <img src="assets/image/cc7ca0b06b4811e80033ded86c692917de7d2a70.jpg" alt="Problem Image">
+        </div>
+      </div>
+    </div>
+  </aside>
+</div>
+

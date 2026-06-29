@@ -1,0 +1,90 @@
+<div class="edit-offer-page" dir="rtl">
+  <section class="edit-offer-card">
+    <div class="card-header">
+      <h1>تعديل العرض</h1>
+
+      <button class="back-btn" type="button" (click)="goBack()">
+        <span aria-hidden="true">‹</span>
+        رجوع
+      </button>
+    </div>
+
+    <form class="offer-form" (ngSubmit)="updateOffer()">
+      <div class="form-grid">
+        <label class="form-field">
+          <span>عنوان العرض</span>
+          <input type="text" name="title" [(ngModel)]="offer.title" />
+        </label>
+
+        <label class="form-field">
+          <span>نوع العرض</span>
+          <input type="text" name="type" [(ngModel)]="offer.type" />
+        </label>
+
+        <label class="form-field form-field--textarea">
+          <span>وصف العرض</span>
+          <textarea name="description" [(ngModel)]="offer.description"></textarea>
+        </label>
+
+        <div class="form-field image-field">
+          <span>صورة العرض</span>
+
+          <div class="offer-image-box">
+           <div class="offer-preview">
+           <img [src]="offer.imageUrl" alt="صورة العرض" />
+
+        <div class="offer-preview__content">
+         <h3>عروض حصرية</h3>
+          <p>خصومات تصل حتى 30% 🔥</p>
+       </div>
+      </div>
+
+  <div class="image-actions">
+    <button class="delete-image-btn" type="button">
+      حذف الصورة
+    </button>
+
+    <label class="change-image-btn">
+      تغيير الصورة
+      <input type="file" accept="image/*" />
+    </label>
+  </div>
+</div>
+        </div>
+
+        <label class="form-field discount-field">
+          <span>نسبة الخصم</span>
+          <input type="text" name="discount" [(ngModel)]="offer.discount" />
+        </label>
+
+        <label class="form-field">
+          <span>تاريخ بداية العرض</span>
+          <input type="text" name="startDate" [(ngModel)]="offer.startDate" />
+        </label>
+
+        <label class="form-field">
+          <span>تاريخ نهاية العرض</span>
+          <input type="text" name="endDate" [(ngModel)]="offer.endDate" />
+        </label>
+
+        <div class="form-field status-field">
+          <span>حالة العرض</span>
+
+          <div class="radio-group">
+            <label>
+              <input type="radio" name="status" value="active" [(ngModel)]="offer.status" />
+              <span>نشط</span>
+            </label>
+
+            <label>
+              <input type="radio" name="status" value="inactive" [(ngModel)]="offer.status" />
+              <span>غير نشط</span>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <button class="submit-btn" type="submit">تحديث العرض</button>
+    </form>
+  </section>
+</div>

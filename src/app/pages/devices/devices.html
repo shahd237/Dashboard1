@@ -6,8 +6,8 @@
       إضافة هاتف
     </button>
     <div class="search-wrap">
-      <svg viewBox="0 0 24 24" fill="none" width="15" height="15"><circle cx="11" cy="11" r="6.5" stroke="currentColor" stroke-width="1.8"/><path d="M20 20l-4.3-4.3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
-      <input type="text" [(ngModel)]="search" placeholder="البحث بالموديل أو الماركة..." />
+      <svg viewBox="0 0 24 24" fill="none" width="10" height="10"><circle cx="11" cy="11" r="6.5" stroke="currentColor" stroke-width="1./"/><path d="M20 20l-4.3-4.3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+      <input type="text" [(ngModel)]="search" placeholder="ابحث عن اسم الهاتف" />
     </div>
     <select class="filter-select" [(ngModel)]="filterBrand">
       <option *ngFor="let b of brands">{{ b }}</option>
@@ -21,37 +21,32 @@
   <div class="devices-table">
     <table>
       <thead><tr>
-        <th></th><th>الجهاز</th><th>التخزين</th><th>اللون</th>
-        <th>السعر</th><th>التقييم</th><th>الطلبات</th><th>الحالة</th><th>إجراءات</th>
+        <th> الصورة </th><th>اسم الهاتف</th><th>العلامة التجارية</th>
+        <th>السعر</th><th>الكمية</th><th>الحالة</th><th>إجراءات</th>
       </tr></thead>
       <tbody>
         <tr *ngFor="let d of filtered">
           <td>
-            <svg viewBox="0 0 36 60" fill="none" width="26" height="42" style="cursor:pointer" (click)="openDetail(d.id)">
-              <rect x="2" y="2" width="32" height="56" rx="5" [attr.fill]="d.colorHex" fill-opacity="0.22" stroke="#aaa" stroke-width="1.5"/>
-              <rect x="7" y="10" width="22" height="32" rx="2" fill="white" fill-opacity="0.55"/>
-              <circle cx="18" cy="52" r="2.5" fill="#999"/>
-            </svg>
+            <img src="assets/image/9a93d65294579f901db784097f8324e9adc14507.png" width="100" height="70">
           </td>
           <td class="device-name-cell">
-            <span class="brand-label">{{ d.brand }}</span>
+            <!-- <span class="brand-label">{{ d.brand }}</span> -->
             <span>{{ d.model }}</span>
           </td>
-          <td>{{ d.storage }}</td>
-          <td><span class="color-dot" [style.background]="d.colorHex"></span> {{ d.color }}</td>
-          <td><strong>{{ d.price | number }} ر.س</strong></td>
-          <td><span class="rating-val"><svg viewBox="0 0 14 14" fill="#f0b429" width="12" height="12"><path d="M7 1l1.6 3.3 3.6.5-2.6 2.5.6 3.6L7 9.3l-3.2 1.6.6-3.6L1.8 4.8l3.6-.5L7 1Z"/></svg>{{ d.rating }}</span></td>
-          <td>{{ d.orders }}</td>
+          <td>{{d.brand}}</td>
+          <td><strong>{{ d.price | number }}</strong></td>
+          <td>10</td>
           <td>
-            <button class="toggle-btn" [class.is-on]="d.status === 'مفعل'" (click)="toggleStatus(d)"><span class="toggle-knob"></span></button>
+            <span class="badge-done">جديد</span>
+            <!-- <button class="toggle-btn" [class.is-on]="d.status === 'مفعل'" (click)="toggleStatus(d)"><span class="toggle-knob"></span></button> -->
           </td>
           <td class="actions">
-            <button class="action-btn view-btn" title="التفاصيل" (click)="openDetail(d.id)">
-              <svg viewBox="0 0 24 24" fill="none" width="13" height="13"><path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12Z" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="12" r="2.5" stroke="currentColor" stroke-width="1.6"/></svg>
+            <button class="action-btn view-btn" title="تعديل" (click)="openDetail(d.id)">
+             <svg viewBox="0 0 24 24" fill="none" width="13" height="13"><path d="M16.5 4.5l3 3L8 19l-4 1 1-4 11.5-11.5Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
             </button>
-            <button class="action-btn edit-btn" title="تعديل" (click)="openEdit(d)">
-              <svg viewBox="0 0 24 24" fill="none" width="13" height="13"><path d="M16.5 4.5l3 3L8 19l-4 1 1-4 11.5-11.5Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
-            </button>
+            <!-- <button class="action-btn edit-btn" title="تعديل" (click)="openEdit(d)">
+             
+            </button> -->
             <button class="action-btn delete-btn" title="حذف" (click)="confirmDelete(d.id)">
               <svg viewBox="0 0 24 24" fill="none" width="13" height="13"><path d="M5 7h14M9 7V5h6v2m-8 0 1 12h6l1-12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </button>

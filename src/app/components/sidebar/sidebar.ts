@@ -15,10 +15,10 @@ export class Sidebar {
 
   navItems: NavItem[] = [
     { label: 'الرئيسية',        icon: 'grid',      route: '/dashboard' },
-    { label: 'إدارة الطلبات',   icon: 'tool',      route: '/maintenance-requests' },
+    { label: 'طلبات الصيانة',   icon: 'tool',      route: '/maintenance-requests' },
     { label: 'العملاء',          icon: 'users',     route: '/clients' },
     { label: 'طلبات الاشتراك',  icon: 'inbox',     route: '/subscription-requests' },
-    { label: 'نتائج الفحص',     icon: 'report',    route: '/reports' },
+    // { label: 'نتائج الفحص',     icon: 'report',    route: '/reports' },
     { label: 'متجر الهواتف',    icon: 'phone',     route: '/devices' },
     { label: 'مراجعة الهواتف',  icon: 'review',    route: '/technicians' },
     { label: 'المحادثات',        icon: 'contacts',  route: '/contacts' },

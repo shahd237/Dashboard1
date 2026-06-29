@@ -4,7 +4,7 @@
 
 .detail-grid {
   display: grid;
-  grid-template-columns: 1.1fr 0.9fr;
+  grid-template-columns: 1fr 2fr;
   gap: 16px;
   align-items: start;
 }
@@ -51,7 +51,6 @@
 .receipt-image-wrap {
   display: flex;
   justify-content: center;
-  background: #f8f5f0;
   border-radius: 10px;
   padding: 12px;
 }
@@ -73,18 +72,21 @@
   color: #fff;
   border: none;
   border-radius: 10px;
-  padding: 13px;
+  padding: 9px;
   font-size: 14px;
   font-weight: 700;
   font-family: inherit;
   cursor: pointer;
   transition: background 0.15s, opacity 0.15s;
-  width: 100%;
+  width: 50%;
+  margin-right: 25%;
 }
 .btn-approve:hover { background: #178c6b; }
 .btn-approve:disabled { background: #6dcfb0; opacity: 0.8; cursor: default; }
 
 /* ── Right: Data Card ── */
+
+
 .data-card {
   background: #fff;
   border-radius: 16px;
@@ -94,9 +96,10 @@
 
 .data-card__title {
   margin: 0 0 18px;
-  font-size: 15px;
+  font-size: 20px;
   font-weight: 700;
-  color: var(--text-dark);
+  color: #1C408A;
+  text-align: center;
 }
 
 .data-list {
@@ -109,7 +112,7 @@
 
 .data-list li {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
   padding: 13px 0;
   border-bottom: 1px solid var(--border-soft);
@@ -119,13 +122,13 @@
 .data-list__key {
   font-size: 13px;
   font-weight: 600;
-  color: var(--text-dark);
+  color: #1C408A;
 }
 
 .data-list__val {
   font-size: 13px;
   color: var(--text-muted);
-  text-align: left;
+  text-align: center;
 }
 
 .data-list__val.dir-ltr {

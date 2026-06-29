@@ -1,73 +1,144 @@
-<div class="settings-grid">
-  <div class="page-card settings-section">
-    <h3 class="settings-section__title">الملف الشخصي</h3>
-    <div class="form-group">
-      <label>الاسم الكامل</label>
-      <input type="text" [(ngModel)]="profile.name" />
+<div class="notifications-page" dir="rtl">
+  <div class="notifications-toolbar">
+    <div class="search-box">
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="1.7" />
+        <path d="M16.5 16.5L21 21" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" />
+      </svg>
+      <input type="search" placeholder="ابحث عن إشعار" [(ngModel)]="searchTerm" />
     </div>
-    <div class="form-group">
-      <label>البريد الإلكتروني</label>
-      <input type="email" [(ngModel)]="profile.email" />
-    </div>
-    <div class="form-group">
-      <label>رقم الهاتف</label>
-      <input type="tel" [(ngModel)]="profile.phone" />
-    </div>
-    <div class="form-group">
-      <label>الدور الوظيفي</label>
-      <input type="text" [(ngModel)]="profile.role" [disabled]="true" />
-    </div>
-    <button class="btn-save" type="button" (click)="saveProfile()">حفظ التغييرات</button>
+
+    <select class="status-select" [(ngModel)]="selectedStatus">
+      <option value="all">جميع الحالات</option>
+      <option value="sent">تم الإرسال</option>
+      <option value="draft">مسودة</option>
+    </select>
+
+    <button class="add-btn" type="button" (click)="addNotification()">
+      <span aria-hidden="true">+</span>
+      إرسال إشعار جديد
+    </button>
   </div>
 
-  <div class="settings-col">
-    <div class="page-card settings-section">
-      <h3 class="settings-section__title">الإشعارات</h3>
-      <ul class="notif-list">
-        <li>
-          <span>طلبات جديدة</span>
-          <button class="toggle-btn" [class.is-on]="notifications.newOrders" (click)="notifications.newOrders = !notifications.newOrders"><span class="toggle-knob"></span></button>
-        </li>
-        <li>
-          <span>تحديثات الفنيين</span>
-          <button class="toggle-btn" [class.is-on]="notifications.techniciansUpdates" (click)="notifications.techniciansUpdates = !notifications.techniciansUpdates"><span class="toggle-knob"></span></button>
-        </li>
-        <li>
-          <span>تنبيهات النظام</span>
-          <button class="toggle-btn" [class.is-on]="notifications.systemAlerts" (click)="notifications.systemAlerts = !notifications.systemAlerts"><span class="toggle-knob"></span></button>
-        </li>
-        <li>
-          <span>العروض التسويقية</span>
-          <button class="toggle-btn" [class.is-on]="notifications.marketing" (click)="notifications.marketing = !notifications.marketing"><span class="toggle-knob"></span></button>
-        </li>
-      </ul>
-    </div>
+  <div class="table-wrap">
+    <table class="notifications-table">
+      <thead>
+        <tr>
+          <th>عنوان الإشعار</th>
+          <th>النوع</th>
+          <th>المرسل الي</th>
+          <th>تاريخ الإرسال</th>
+          <th>الحالة</th>
+          <th>الإجراءات</th>
+        </tr>
+      </thead>
 
-    <div class="page-card settings-section" style="margin-top:16px">
-      <h3 class="settings-section__title">إعدادات التطبيق</h3>
-      <div class="form-group">
-        <label>اللغة</label>
-        <select [(ngModel)]="appSettings.language">
-          <option value="ar">العربية</option>
-          <option value="en">English</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label>العملة</label>
-        <select [(ngModel)]="appSettings.currency">
-          <option value="SAR">ريال سعودي (ر.س)</option>
-          <option value="AED">درهم إماراتي (د.إ)</option>
-          <option value="USD">دولار أمريكي ($)</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label>المنطقة الزمنية</label>
-        <select [(ngModel)]="appSettings.timezone">
-          <option value="Asia/Riyadh">الرياض (GMT+3)</option>
-          <option value="Asia/Dubai">دبي (GMT+4)</option>
-          <option value="UTC">UTC (GMT+0)</option>
-        </select>
-      </div>
-    </div>
+      <tbody>
+        <tr *ngFor="let notification of pagedNotifications">
+          <td>{{ notification.title }}</td>
+          <td>
+            <span class="type-pill" [ngClass]="'type-pill--' + notification.typeKey">
+              {{ notification.type }}
+            </span>
+          </td>
+          <td>
+            <strong class="receiver-name">{{ notification.receiverName }}</strong>
+            <span class="receiver-phone">{{ notification.receiverPhone }}</span>
+          </td>
+          <td>
+            <strong class="date-value">{{ notification.date }}</strong>
+            <span class="time-value">{{ notification.time }}</span>
+          </td>
+          <td>
+            <span class="status-pill">{{ notification.status }}</span>
+          </td>
+          <td>
+            <div class="actions">
+              <button class="icon-btn view-btn" type="button" aria-label="عرض التفاصيل" (click)="openDetails(notification)">
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M2.5 12s3.5-6 9.5-6 9.5 6 9.5 6-3.5 6-9.5 6-9.5-6-9.5-6Z" stroke="currentColor" stroke-width="1.8" />
+                  <circle cx="12" cy="12" r="2.6" stroke="currentColor" stroke-width="1.8" />
+                </svg>
+              </button>
+
+              <button class="icon-btn delete-btn" type="button" aria-label="حذف" (click)="deleteNotification(notification)">
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M6 7h12M10 7V5h4v2M8 10v9h8v-9" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+                  <path d="M11 12v5M13 12v5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+                </svg>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <nav class="pagination" aria-label="Pagination">
+    <button type="button" class="page-btn page-btn--wide" [disabled]="currentPage === totalPages" (click)="nextPage()">التالي</button>
+
+    <button
+      type="button"
+      class="page-btn"
+      *ngFor="let page of pages"
+      [class.is-active]="page === currentPage"
+      (click)="goToPage(page)"
+    >
+      {{ page }}
+    </button>
+
+    <button type="button" class="page-btn page-btn--wide" [disabled]="currentPage === 1" (click)="previousPage()">السابق</button>
+  </nav>
+
+  <div class="modal-backdrop" *ngIf="selectedNotification">
+    <section class="details-modal" role="dialog" aria-modal="true" aria-labelledby="notification-details-title">
+      <button class="close-btn" type="button" aria-label="إغلاق" (click)="closeDetails()">×</button>
+
+      <h2 id="notification-details-title">تفاصيل الإشعار</h2>
+
+      <dl class="details-list">
+        <div>
+          <dt>عنوان الإشعار</dt>
+          <dd>{{ selectedNotification.title }}</dd>
+        </div>
+
+        <div>
+          <dt>نوع الإشعار</dt>
+          <dd>
+            <span class="type-pill type-pill--maintenance">{{ selectedNotification.type }}</span>
+          </dd>
+        </div>
+
+        <div>
+          <dt>المرسل الي</dt>
+          <dd>
+            <strong>{{ selectedNotification.receiverName }}</strong>
+            <span>{{ selectedNotification.receiverPhone }}</span>
+          </dd>
+        </div>
+
+        <div>
+          <dt>تاريخ الإرسال</dt>
+          <dd>{{ selectedNotification.fullDate }}</dd>
+        </div>
+
+        <div>
+          <dt>الحالة</dt>
+          <dd><span class="status-pill">{{ selectedNotification.status }}</span></dd>
+        </div>
+
+        <div>
+          <dt>نص الإشعار</dt>
+          <dd>{{ selectedNotification.body }}</dd>
+        </div>
+
+        <div>
+          <dt>عدد المستلمين</dt>
+          <dd>{{ selectedNotification.recipients }} مستلم</dd>
+        </div>
+      </dl>
+
+      <button class="modal-close-action" type="button" (click)="closeDetails()">إغلاق</button>
+    </section>
   </div>
 </div>

@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../../services/auth';
-
+import { Dashboard } from '../../dashboard/dashboard'; 
 @Component({
   selector: 'app-logout',
-  imports: [],
+  imports: [Dashboard],
   templateUrl: './logout.html',
   styleUrl: './logout.scss',
 })

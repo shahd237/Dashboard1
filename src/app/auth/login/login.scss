@@ -1,6 +1,16 @@
 .auth-hint {
   font-size: 11px;
-  color: var(--text-faint);
+  color: #0A437B;
   text-align: center;
   margin: 0;
+}
+
+.auth-page{
+  background-image: url(../../../../public/assets/image/2b01ed48cf5ac656a06c4ce9c5f14ab475085dbd.png);
+  background-size: cover;
+  background-position: center;
+}
+
+.auth-btn{
+    background-color: #0A437B;
 }

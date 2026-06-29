@@ -5,8 +5,19 @@ import { RouterLink } from '@angular/router';
 import { Pagination } from '../../shared/pagination/pagination';
 import { StatusBadge, StatusTone } from '../../shared/status-badge/status-badge';
 import { Modal } from '../../shared/modal/modal';
+import { Router } from '@angular/router';
 
-interface Request { id: string; client: string; device: string; technician: string; date: string; price: string; status: string; }
+interface Request {
+  id: string;
+  client: string;
+  device: string;
+  technician: string;
+  date: string;
+  price: string;
+  status: string;
+  man: string;
+  type: string;
+}
 
 @Component({
   selector: 'app-maintenance-requests',
@@ -15,48 +26,208 @@ interface Request { id: string; client: string; device: string; technician: stri
   styleUrl: './maintenance-requests.scss',
 })
 export class MaintenanceRequests {
-  search = ''; filterStatus = 'الكل';
-  showModal = false; isEditing = false;
-  showDeleteConfirm = false; deleteId: string | null = null;
+  constructor(private router: Router) {}
+  search = '';
+  filterStatus = 'الكل';
+  showModal = false;
+  isEditing = false;
+  showDeleteConfirm = false;
+  deleteId: string | null = null;
   form: Partial<Request> = {};
-  statuses = ['جديد','قيد التنفيذ','مكتمل','مجدول','قيد الانتظار','مرفوض'];
-  technicians = ['محمود يوسف','خالد عمر','عبدالله ناصر','عمر الرشيدي'];
+  statuses = ['جديد', 'قيد التنفيذ', 'مكتمل', 'مجدول', 'قيد الانتظار', 'مرفوض'];
+  technicians = ['محمود يوسف', 'خالد عمر', 'عبدالله ناصر', 'عمر الرشيدي'];
 
   all: Request[] = [
-    { id: '4582', client: 'أحمد سالم', device: 'iPhone 14 Pro', technician: 'محمود يوسف', date: '12 يونيو 2026', price: '350 ر.س', status: 'جديد' },
-    { id: '4581', client: 'سارة محمد', device: 'Samsung S23', technician: 'خالد عمر', date: '11 يونيو 2026', price: '210 ر.س', status: 'قيد التنفيذ' },
-    { id: '4580', client: 'منى الشريف', device: 'iPad Air', technician: 'محمود يوسف', date: '10 يونيو 2026', price: '180 ر.س', status: 'مكتمل' },
-    { id: '4579', client: 'فيصل القحطاني', device: 'MacBook Pro', technician: 'عبدالله ناصر', date: '9 يونيو 2026', price: '620 ر.س', status: 'مجدول' },
-    { id: '4578', client: 'ريم العتيبي', device: 'iPhone 13', technician: 'خالد عمر', date: '8 يونيو 2026', price: '275 ر.س', status: 'قيد الانتظار' },
-    { id: '4577', client: 'نواف الدوسري', device: 'Samsung Tab S8', technician: 'محمود يوسف', date: '7 يونيو 2026', price: '195 ر.س', status: 'مكتمل' },
-    { id: '4576', client: 'هند الزهراني', device: 'iPhone 12', technician: 'عبدالله ناصر', date: '6 يونيو 2026', price: '230 ر.س', status: 'مرفوض' },
-    { id: '4575', client: 'تركي العنزي', device: 'iPhone 15', technician: 'خالد عمر', date: '5 يونيو 2026', price: '410 ر.س', status: 'مكتمل' },
+    {
+      id: '4582',
+      client: 'أحمد سالم',
+      device: '01098540717',
+      technician: 'مندوب',
+      type: 'iphone 14',
+      price: 'بانتظار الفحص',
+      status: 'شهد',
+      man: 'محمود يوسف',
+      date: '3-5-2026',
+    },
+    {
+      id: '4581',
+      client: 'سارة محمد',
+      device: '01098540717',
+      technician: 'فني منازل',
+      type: 'iphone 14',
+      price: 'تحت الفحص',
+      status: '-',
+      man: '-',
+      date: '10-2-2026',
+    },
+    {
+      id: '4580',
+      client: 'منى الشريف',
+      device: '01098540717',
+      technician: 'مندوب',
+      type: 'iphone 14',
+      price: 'تم فحصها',
+      status: '-',
+      man: '-',
+      date: '10-2-2026',
+    },
+    {
+      id: '4579',
+      client: 'فيصل القحطاني',
+      device: '01098540717',
+      technician: 'مندوب',
+      type: 'iphone 14',
+      price: 'تم فحصها',
+      status: '-',
+      man: '-',
+      date: '10-2-2026',
+    },
+    {
+      id: '4578',
+      client: 'ريم العتيبي',
+      device: '01098540717',
+      technician: 'مندوب',
+      type: 'iphone 14',
+      price: 'تم فحصها',
+      status: '-',
+      man: '-',
+      date: '10-2-2026',
+    },
+    {
+      id: '4577',
+      client: 'نواف الدوسري',
+      device: '01098540717',
+      technician: 'مندوب',
+      type: 'iphone 14',
+      price: 'تم فحصها',
+      status: '-',
+      man: '-',
+      date: '10-2-2026',
+    },
+    {
+      id: '4576',
+      client: 'هند الزهراني',
+      device: '01098540717',
+      technician: 'مندوب',
+      type: 'iphone 14',
+      price: 'تم فحصها',
+      status: '-',
+      man: '-',
+      date: '10-2-2026',
+    },
+    {
+      id: '4575',
+      client: 'تركي العنزي',
+      device: '01098540717',
+      technician: 'مندوب',
+      type: 'iphone 14',
+      price: 'تم فحصها',
+      status: '-',
+      man: 'عمر الرشيدي',
+      date: '10-2-2026',
+    },
   ];
 
   get filtered(): Request[] {
     const q = this.search.toLowerCase();
-    return this.all.filter(r => {
+    return this.all.filter((r) => {
       if (this.filterStatus !== 'الكل' && r.status !== this.filterStatus) return false;
-      if (q && !r.client.includes(q) && !r.id.includes(q) && !r.device.toLowerCase().includes(q)) return false;
+      if (q && !r.client.includes(q) && !r.id.includes(q) && !r.device.toLowerCase().includes(q))
+        return false;
       return true;
     });
   }
 
-  openAdd(): void { this.isEditing = false; this.form = { status: 'جديد', date: new Date().toLocaleDateString('ar-SA') }; this.showModal = true; }
-  openEdit(r: Request): void { this.isEditing = true; this.form = { ...r }; this.showModal = true; }
+  openAdd(): void {
+    this.isEditing = false;
+    this.form = { status: 'جديد', date: new Date().toLocaleDateString('ar-SA') };
+    this.showModal = true;
+  }
+  openEdit(r: Request): void {
+    this.router.navigate(['/maintenance-requests', r.id, 'edit']);
+  }
 
   save(): void {
     if (!this.form.client || !this.form.device) return;
-    if (this.isEditing) { const i = this.all.findIndex(r => r.id === this.form.id); if (i > -1) this.all[i] = { ...this.all[i], ...this.form } as Request; }
-    else { const newId = String(Number(this.all[0]?.id ?? '4000') + 1); this.all.unshift({ ...this.form, id: newId } as Request); }
+    if (this.isEditing) {
+      const i = this.all.findIndex((r) => r.id === this.form.id);
+      if (i > -1) this.all[i] = { ...this.all[i], ...this.form } as Request;
+    } else {
+      const newId = String(Number(this.all[0]?.id ?? '4000') + 1);
+      this.all.unshift({ ...this.form, id: newId } as Request);
+    }
     this.showModal = false;
   }
 
-  confirmDelete(id: string): void { this.deleteId = id; this.showDeleteConfirm = true; }
-  doDelete(): void { this.all = this.all.filter(r => r.id !== this.deleteId); this.showDeleteConfirm = false; }
+  confirmDelete(id: string): void {
+    this.deleteId = id;
+    this.showDeleteConfirm = true;
+  }
+  doDelete(): void {
+    this.all = this.all.filter((r) => r.id !== this.deleteId);
+    this.showDeleteConfirm = false;
+  }
 
   badgeTone(status: string): StatusTone {
-    const map: Record<string, StatusTone> = { 'جديد': 'new', 'مكتمل': 'completed', 'قيد التنفيذ': 'inprogress', 'مجدول': 'scheduled', 'قيد الانتظار': 'pending', 'مرفوض': 'rejected' };
+    const map: Record<string, StatusTone> = {
+      جديد: 'new',
+      مكتمل: 'completed',
+      'قيد التنفيذ': 'inprogress',
+      مجدول: 'scheduled',
+      'قيد الانتظار': 'pending',
+      مرفوض: 'rejected',
+    };
     return map[status] ?? 'new';
+  }
+
+  searchQuery: string = '';
+  fromDate: string = '';
+  toDate: string = '';
+  selectedCategory: string = '';
+  selectedStatus: string = '';
+
+  onSearch(): void {
+    console.log('Search Query:', this.searchQuery);
+    // Emit search event or call API
+    this.applyFilters();
+  }
+
+  onDateChange(): void {
+    console.log('Date Range:', {
+      from: this.fromDate,
+      to: this.toDate,
+    });
+    this.applyFilters();
+  }
+
+  onCategoryChange(): void {
+    console.log('Selected Category:', this.selectedCategory);
+    this.applyFilters();
+  }
+
+  onStatusChange(): void {
+    console.log('Selected Status:', this.selectedStatus);
+    this.applyFilters();
+  }
+
+  applyFilters(): void {
+    const filters = {
+      search: this.searchQuery,
+      fromDate: this.fromDate,
+      toDate: this.toDate,
+      category: this.selectedCategory,
+      status: this.selectedStatus,
+    };
+    console.log('Applied Filters:', filters);
+    // Emit filters to parent component or call API
+  }
+
+  clearFilters(): void {
+    this.searchQuery = '';
+    this.fromDate = '';
+    this.toDate = '';
+    this.selectedCategory = '';
+    this.selectedStatus = '';
+    console.log('Filters cleared');
   }
 }

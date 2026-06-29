@@ -1,0 +1,38 @@
+<div class="page-card">
+  <div class="form-header">
+    <h3>إضافة عرض جديد</h3>
+  </div>
+  <div class="marketing-form">
+    <div class="upload-area">
+      <div class="upload-circle">
+        <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="1.5"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        <span>إضافة صورة</span>
+      </div>
+    </div>
+    <div class="form-body">
+      <div class="form-row">
+        <div class="form-group"><label>عنوان العرض</label><input [(ngModel)]="form.titleAr" placeholder="أدخل عنوان العرض" /></div>
+        <div class="form-group"><label>نوع العرض</label>
+          <select [(ngModel)]="form.type">
+            <option value="">اختر نوع العرض</option>
+            <option *ngFor="let t of offerTypes">{{ t }}</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group full"><label>وصف العرض</label><textarea [(ngModel)]="form.description" rows="4" placeholder="اكتب وصف العرض..."></textarea></div>
+      <div class="form-group full"><label>نسبة الخصم</label><input [(ngModel)]="form.discount" placeholder="مثال: 20%" /></div>
+      <div class="form-row">
+        <div class="form-group"><label>تاريخ بداية العرض</label><input type="date" [(ngModel)]="form.startDate" /></div>
+        <div class="form-group"><label>تاريخ نهاية العرض</label><input type="date" [(ngModel)]="form.endDate" /></div>
+      </div>
+      <div class="form-group">
+        <label>حالة العرض</label>
+        <div class="radio-group">
+          <label class="radio-opt"><input type="radio" [(ngModel)]="form.status" value="نشط" /> نشط</label>
+          <label class="radio-opt"><input type="radio" [(ngModel)]="form.status" value="غير نشط" /> غير نشط</label>
+        </div>
+      </div>
+      <button class="btn-submit" type="button" (click)="submit()">رفع العرض</button>
+    </div>
+  </div>
+</div>

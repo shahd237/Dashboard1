@@ -20,11 +20,11 @@ export class DonutChartCard {
   centerValue = 'إجمالي الإيرادات';
 
   private raw: { label: string; value: number; color: string }[] = [
-    { label: 'تحويل بنكي', value: 18, color: '#34c7c1' },
-    { label: 'بطاقة ائتمان', value: 12, color: '#f5a623' },
-    { label: 'نقدي', value: 36, color: '#161c45' },
-    { label: 'محفظة رقمية', value: 6, color: '#1b2a52' },
-    { label: 'أخرى', value: 28, color: '#7c93e8' },
+    { label: 'طلبات جديدة', value: 15, color: '#738CE6' },
+    { label: 'تحت الفحص', value: 25, color: '#130480' },
+    { label: 'قيد الأصلاح', value: 15, color: '#1A2950' },
+    { label: 'تم التصليح', value: 20, color: '#FFAE4C' },
+    { label: 'جاهز للتسليم', value: 15, color: '#3CC3DF' },
   ];
 
   segments: Segment[] = this.computeSegments();

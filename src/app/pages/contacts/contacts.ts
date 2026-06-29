@@ -2,8 +2,26 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
-interface Conversation { id: number; name: string; lastMsg: string; time: string; unread?: number; active?: boolean; }
-interface Message { text: string; from: 'admin' | 'client'; time: string; }
+type TicketStatus = 'new' | 'open' | 'closed' | 'waiting';
+type TicketTab = 'all' | 'unread' | 'open' | 'closed';
+
+interface Ticket {
+  id: number;
+  name: string;
+  message: string;
+  time: string;
+  avatar: string;
+  status: TicketStatus;
+  statusLabel: string;
+  unread: boolean;
+}
+
+interface ChatMessage {
+  id: number;
+  from: 'client' | 'agent';
+  text: string;
+  time: string;
+}
 
 @Component({
   selector: 'app-contacts',
@@ -12,45 +30,152 @@ interface Message { text: string; from: 'admin' | 'client'; time: string; }
   styleUrl: './contacts.scss',
 })
 export class Contacts {
-  newMessage = '';
-  activeId = 1;
+   searchTerm = '';
+  activeTab: TicketTab = 'all';
+  draftMessage = '';
 
-  conversations: Conversation[] = [
-    { id: 1, name: 'شهد هاشم', lastMsg: 'شكراً جزيلاً على الخدمة', time: 'الآن', unread: 2, active: true },
-    { id: 2, name: 'أحمد سالم', lastMsg: 'متى سيصل الفني؟', time: '5 د' },
-    { id: 3, name: 'سارة محمد', lastMsg: 'هل تم إغلاق الطلب؟', time: '12 د' },
-    { id: 4, name: 'فيصل القحطاني', lastMsg: 'تمام شكراً', time: '32 د' },
-    { id: 5, name: 'ريم العتيبي', lastMsg: 'أريد تعديل الموعد', time: '1 س' },
+  tabs = [
+    { key: 'all' as TicketTab, label: 'الكل', count: 24 },
+    { key: 'unread' as TicketTab, label: 'غير مقروء', count: 5 },
+    { key: 'open' as TicketTab, label: 'مفتوح', count: 5 },
+    { key: 'closed' as TicketTab, label: 'مغلق', count: 7 },
   ];
 
-  messages: Record<number, Message[]> = {
-    1: [
-      { text: 'مرحباً، كيف يمكنني مساعدتك؟', from: 'admin', time: '9:00' },
-      { text: 'أريد الاستفسار عن طلب الصيانة رقم #4582', from: 'client', time: '9:02' },
-      { text: 'تفضل، الطلب قيد المعالجة وسيتم التواصل معك خلال ساعتين', from: 'admin', time: '9:03' },
-      { text: 'شكراً جزيلاً على الخدمة', from: 'client', time: '9:05' },
-    ],
-    2: [
-      { text: 'أهلاً بك، متى ترغب في إرسال الفني؟', from: 'admin', time: '10:00' },
-      { text: 'متى سيصل الفني؟', from: 'client', time: '10:05' },
-    ],
-    3: [{ text: 'هل تم إغلاق الطلب؟', from: 'client', time: '11:00' }],
-    4: [{ text: 'تمام شكراً', from: 'client', time: '12:00' }],
-    5: [{ text: 'أريد تعديل الموعد', from: 'client', time: '13:00' }],
-  };
+  tickets: Ticket[] = [
+    {
+      id: 1,
+      name: 'محمد احمد',
+      message: 'هل متوفر اللون الأسود؟',
+      time: 'منذ 5 دقائق',
+      avatar: 'assets/image/5218ca0b31cbc70c9a16103e017751be2da14f4c.jpg',
+      status: 'new',
+      statusLabel: 'جديدة',
+      unread: true,
+    },
+    {
+      id: 2,
+      name: 'محمد احمد',
+      message: 'هل متوفر اللون الأسود؟',
+      time: 'منذ 5 دقائق',
+      avatar: 'assets/image/5218ca0b31cbc70c9a16103e017751be2da14f4c.jpg',
+      status: 'open',
+      statusLabel: 'مفتوحة',
+      unread: false,
+    },
+    {
+      id: 3,
+      name: 'محمد احمد',
+      message: 'هل متوفر اللون الأسود؟',
+      time: 'منذ 5 دقائق',
+      avatar: 'assets/image/5218ca0b31cbc70c9a16103e017751be2da14f4c.jpg',
+      status: 'closed',
+      statusLabel: 'مغلقة',
+      unread: false,
+    },
+    {
+      id: 4,
+      name: 'محمد احمد',
+      message: 'هل متوفر اللون الأسود؟',
+      time: 'منذ 5 دقائق',
+      avatar: 'assets/image/5218ca0b31cbc70c9a16103e017751be2da14f4c.jpg',
+      status: 'waiting',
+      statusLabel: 'بانتظار رد العميل',
+      unread: false,
+    },
+    {
+      id: 5,
+      name: 'محمد احمد',
+      message: 'هل متوفر اللون الأسود؟',
+      time: 'منذ 5 دقائق',
+      avatar: 'assets/image/5218ca0b31cbc70c9a16103e017751be2da14f4c.jpg',
+      status: 'closed',
+      statusLabel: 'مغلقة',
+      unread: false,
+    },
+  ];
 
-  get activeMessages(): Message[] { return this.messages[this.activeId] || []; }
-  get activeConversation(): Conversation | undefined { return this.conversations.find(c => c.id === this.activeId); }
+  selectedTicket: Ticket = this.tickets[0];
 
-  selectConversation(id: number): void {
-    this.activeId = id;
-    this.conversations = this.conversations.map(c => ({ ...c, active: c.id === id, unread: c.id === id ? 0 : c.unread }));
+  messages: ChatMessage[] = [
+    {
+      id: 1,
+      from: 'client',
+      text: 'السلام عليكم عندي مشكلة في تتبع طلبي',
+      time: '10:30 ص',
+    },
+    {
+      id: 2,
+      from: 'agent',
+      text: 'اهلا بك، من فضلك ارسل رقم الطلب وسأساعدك فوراً',
+      time: '10:30 ص',
+    },
+    {
+      id: 3,
+      from: 'client',
+      text: '#12548',
+      time: '10:31 ص',
+    },
+    {
+      id: 4,
+      from: 'agent',
+      text: 'شكراً لك، جاري التحقق من حالة الطلب',
+      time: '10:30 ص',
+    },
+    {
+      id: 5,
+      from: 'agent',
+      text: 'طلبك حالياً قيد التنفيذ وسيتم الانتهاء منه خلال 24 ساعة وسنقوم بإشعارك فور تجهيزه',
+      time: '10:30 ص',
+    },
+    {
+      id: 6,
+      from: 'client',
+      text: 'شكراً',
+      time: '10:37 ص',
+    },
+  ];
+
+  get filteredTickets(): Ticket[] {
+    const term = this.searchTerm.trim().toLowerCase();
+
+    return this.tickets.filter((ticket) => {
+      const matchesSearch =
+        !term ||
+        ticket.name.toLowerCase().includes(term) ||
+        ticket.message.toLowerCase().includes(term);
+
+      const matchesTab =
+        this.activeTab === 'all' ||
+        (this.activeTab === 'unread' && ticket.unread) ||
+        (this.activeTab === 'open' && ticket.status === 'open') ||
+        (this.activeTab === 'closed' && ticket.status === 'closed');
+
+      return matchesSearch && matchesTab;
+    });
   }
 
-  send(): void {
-    if (!this.newMessage.trim()) return;
-    if (!this.messages[this.activeId]) this.messages[this.activeId] = [];
-    this.messages[this.activeId].push({ text: this.newMessage.trim(), from: 'admin', time: 'الآن' });
-    this.newMessage = '';
+  setTab(tab: TicketTab): void {
+    this.activeTab = tab;
+  }
+
+  selectTicket(ticket: Ticket): void {
+    this.selectedTicket = ticket;
+  }
+
+  sendMessage(): void {
+    const text = this.draftMessage.trim();
+
+    if (!text) {
+      return;
+    }
+
+    this.messages.push({
+      id: Date.now(),
+      from: 'agent',
+      text,
+      time: 'الآن',
+    });
+
+    this.draftMessage = '';
   }
 }

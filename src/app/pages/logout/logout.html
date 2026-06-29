@@ -1,5 +1,17 @@
+<div class="logout-page">
+  <div class="logout-dashboard-bg">
+    <app-dashboard></app-dashboard>
+  </div>
+
+
 <div class="logout-screen">
-  <div class="logout-card page-card">
+  <div class="logout-card">
+    <button class="logout-close" type="button" aria-label="إغلاق" (click)="cancel()">
+      <svg viewBox="0 0 24 24" fill="none">
+        <path d="M6 6l12 12M18 6 6 18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+      </svg>
+    </button>
+
     <div class="logout-icon">
       <svg viewBox="0 0 24 24" fill="none">
         <path d="M15 16.5 19.5 12 15 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -7,11 +19,20 @@
         <path d="M11.5 4.5H6A1.5 1.5 0 0 0 4.5 6v12A1.5 1.5 0 0 0 6 19.5h5.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
     </div>
-    <h2>تأكيد تسجيل الخروج</h2>
-    <p>هل أنت متأكد من رغبتك في تسجيل الخروج من النظام؟</p>
+
+    <h2>تسجيل الخروج</h2>
+
+    <p class="logout-question">
+      هل أنت متأكد من رغبتك في تسجيل الخروج؟
+    </p>
+
+    <p class="logout-note">
+      سوف يتم إنهاء جلستك الحالية وستحتاج إلى تسجيل الدخول مرة أخرى
+    </p>
+
     <div class="logout-actions">
-      <button class="btn-logout" type="button" (click)="confirm()">نعم، تسجيل الخروج</button>
       <button class="btn-cancel" type="button" (click)="cancel()">إلغاء</button>
+      <button class="btn-logout" type="button" (click)="confirm()">تسجيل الخروج</button>
     </div>
   </div>
 </div>

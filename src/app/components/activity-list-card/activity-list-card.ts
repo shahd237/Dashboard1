@@ -6,6 +6,7 @@ interface ActivityItem {
   date: string;
   status: 'pending' | 'inprogress' | 'completed' | 'new' | 'scheduled';
   progress: number;
+  type:string
 }
 
 @Component({
@@ -16,21 +17,21 @@ interface ActivityItem {
 })
 export class ActivityListCard {
   items: ActivityItem[] = [
-    { name: 'جديد', date: '12 يونيو 2026', status: 'new', progress: 20 },
-    { name: 'مكتمل', date: '10 يونيو 2026', status: 'completed', progress: 100 },
-    { name: 'قيد التنفيذ', date: '14 يونيو 2026', status: 'inprogress', progress: 55 },
-    { name: 'مجدول', date: '16 يونيو 2026', status: 'scheduled', progress: 40 },
-    { name: 'مكتمل', date: '9 يونيو 2026', status: 'completed', progress: 100 },
-    { name: 'قيد الانتظار', date: '17 يونيو 2026', status: 'pending', progress: 10 },
+    { type: 'iphone 13',name:"عمر الرشيدي", date: 'منذ 5 دقايق', status: 'new', progress: 100 },
+    { type: 'iphone 13',name:"محمود يوسف", date: 'منذ 5 دقايق', status: 'completed', progress: 20 },
+    { type: 'iphone 13',name:"يوسف محمود", date: 'منذ 5 دقايق', status: 'inprogress', progress: 55 },
+    { type: 'iphone 13',name:"ناصر عبدالله", date: 'منذ 5 دقايق', status: 'scheduled', progress: 40 },
+    { type: 'iphone 13',name:"صالح عبدالله", date: 'منذ 5 دقايق', status: 'completed', progress: 100 },
+    { type: 'iphone 13',name:"محمود يوسف", date: 'منذ 5 دقايق', status: 'completed', progress: 10 },
   ];
 
   statusLabel(status: ActivityItem['status']): string {
     const map: Record<ActivityItem['status'], string> = {
       new: 'جديد',
-      completed: 'مكتمل',
-      inprogress: 'قيد التنفيذ',
-      scheduled: 'مجدول',
-      pending: 'قيد الانتظار',
+      completed: 'تم الاصلاح',
+      inprogress: 'طلب جديد',
+      scheduled: 'تحت الفحص',
+      pending: 'تم الاصلاح',
     };
     return map[status];
   }

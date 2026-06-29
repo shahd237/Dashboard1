@@ -1,45 +1,82 @@
 <div class="page-grid">
-  <div class="detail-left">
+  <div class="detail-right">
+    <div class="page-card profile-card">
+      <h3 style="color:#1C408A;text-align:right">بيانات العميل</h3>
+      <div class="profile-card__avatar">
+        <img src="assets/image/5218ca0b31cbc70c9a16103e017751be2da14f4c.jpg" [alt]="client.name" />
+      </div>
+      
+      <ul class="profile-card__info">
+        <li>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" style="color:#000000">
+           <circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="2"/>
+           <path d="M4 20C4 16.6863 7.58172 14 12 14C16.4183 14 20 16.6863 20 20" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+           <p><span style="color:#000000">الأسم</span> {{client.name}}</p>
+        </li>
+        <li>
+          <svg viewBox="0 0 24 24" fill="none" style="color:#000000"><path d="M6.6 10.8a15.4 15.4 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+          <p> <span style="color:#000000">رقم الهاتف </span> {{ client.phone }}</p>
+        </li>
+        <li>
+          <svg viewBox="0 0 24 24" fill="none" style="color:#000000"><rect x="3" y="5.5" width="18" height="13" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M3 8l9 5.5L21 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          <p> <span style="color:#000000">البريد الالكتروني </span> {{ client.email }}</p>
+        </li>
+        <li>
+          <svg viewBox="0 0 24 24" fill="none" style="color:#000000"><path d="M12 13.5a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" stroke="currentColor" stroke-width="1.5"/><path d="M12 2C8.1 2 5 5.1 5 9c0 5.3 7 13 7 13s7-7.7 7-13c0-3.9-3.1-7-7-7Z" stroke="currentColor" stroke-width="1.5"/></svg>
+          <p> <span style="color:#000000">العنوان </span> {{ client.city }}</p>
+        </li>
+        <li>
+          <svg viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="17" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M3 9h18M8 2v4M16 2v4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          <p> <span style="color:#000000">تاريخ التسجيل </span>{{ client.joinDate }}</p>
+        </li>
+
+         <li>
+          <svg viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="17" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M3 9h18M8 2v4M16 2v4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          <p> <span style="color:#000000">حالة التسجيل </span><span style="color:#2C6B4B">{{ client.status }}</span></p>
+        </li>
+
+      </ul>
+
+    </div>
+  </div>
+   <div class="detail-left">
     <div class="page-card detail-stats">
-      <h3>إحصائيات العميل</h3>
+      <h2 style="color:#1C408A">إحصائيات العميل</h2>
       <div class="detail-stats__row">
         <div class="detail-stat" *ngFor="let s of stats">
-          <span class="detail-stat__value">{{ s.value }}</span>
           <span class="detail-stat__label">{{ s.label }}</span>
+          <span class="detail-stat__value">{{ s.value }}</span>
+          <span style="color:#1C408A">{{s.end}}</span>
         </div>
       </div>
     </div>
     <div class="page-card" style="margin-top:16px">
-      <h3 class="card-title">آخر طلبات الصيانة</h3>
-      <app-data-table [columns]="columns" [rows]="rows" [actions]="['view']"></app-data-table>
+     <h2 style="color:#1C408A">أخر طلبات الصيانة</h2>
+      <div class="page-card maintenance-card">
+
+ <div class="maintenance-table" role="region" aria-label="اخر طلبات الصيانة">
+  <table>
+    <thead>
+      <tr>
+        <th>رقم الطلب</th>
+        <th>الجهاز</th>
+        <th>الحالة</th>
+        <th>تاريخ الطلب</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let row of rows">
+        <td>{{ row.id }}</td>
+        <td>{{ row.device }}</td>
+        <td>{{ row.date }}</td>
+        <td>{{ row.status }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+</div>
     </div>
   </div>
 
-  <div class="detail-right">
-    <div class="page-card profile-card">
-      <div class="profile-card__avatar">
-        <img [src]="client.avatar" [alt]="client.name" />
-      </div>
-      <h2 class="profile-card__name">{{ client.name }}</h2>
-      <ul class="profile-card__info">
-        <li>
-          <svg viewBox="0 0 24 24" fill="none"><path d="M6.6 10.8a15.4 15.4 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
-          <span>{{ client.phone }}</span>
-        </li>
-        <li>
-          <svg viewBox="0 0 24 24" fill="none"><rect x="3" y="5.5" width="18" height="13" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M3 8l9 5.5L21 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-          <span>{{ client.email }}</span>
-        </li>
-        <li>
-          <svg viewBox="0 0 24 24" fill="none"><path d="M12 13.5a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" stroke="currentColor" stroke-width="1.5"/><path d="M12 2C8.1 2 5 5.1 5 9c0 5.3 7 13 7 13s7-7.7 7-13c0-3.9-3.1-7-7-7Z" stroke="currentColor" stroke-width="1.5"/></svg>
-          <span>{{ client.city }}</span>
-        </li>
-        <li>
-          <svg viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="17" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M3 9h18M8 2v4M16 2v4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-          <span>انضم {{ client.joinDate }}</span>
-        </li>
-      </ul>
-      <a routerLink="/clients" class="back-btn">← العودة للعملاء</a>
-    </div>
-  </div>
 </div>

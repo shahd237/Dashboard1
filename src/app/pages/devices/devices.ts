@@ -29,18 +29,18 @@ export class Devices {
   nextId = 8;
   form: Partial<Device> = {};
 
-  brands = ['الكل','Apple','Samsung','Huawei','Xiaomi'];
+  brands = ['الكل','Apple','Apple','Apple','Apple'];
   storageOptions = ['64GB','128GB','256GB','512GB','1TB'];
   colors = [{ name: 'أسود', hex: '#3a3a3c' },{ name: 'أزرق', hex: '#2e4ec0' },{ name: 'رمادي', hex: '#8e8e93' },{ name: 'أبيض', hex: '#e5e5ea' },{ name: 'وردي', hex: '#ff6b9d' },{ name: 'أخضر', hex: '#34c759' }];
 
   all: Device[] = [
     { id: 1, brand: 'Apple', model: 'iPhone 15 Pro', storage: '256GB', color: 'أسود تيتانيوم', colorHex: '#3a3a3c', price: 5499, rating: 4.8, orders: 34, status: 'مفعل' },
-    { id: 2, brand: 'Apple', model: 'iPhone 14', storage: '128GB', color: 'أزرق', colorHex: '#2e4ec0', price: 3799, rating: 4.6, orders: 21, status: 'مفعل' },
-    { id: 3, brand: 'Samsung', model: 'Galaxy S24 Ultra', storage: '512GB', color: 'رمادي', colorHex: '#8e8e93', price: 5999, rating: 4.7, orders: 18, status: 'مفعل' },
-    { id: 4, brand: 'Samsung', model: 'Galaxy A54', storage: '256GB', color: 'أبيض', colorHex: '#e5e5ea', price: 1899, rating: 4.2, orders: 12, status: 'مفعل' },
-    { id: 5, brand: 'Apple', model: 'iPhone 13', storage: '128GB', color: 'وردي', colorHex: '#ff6b9d', price: 2999, rating: 4.4, orders: 9, status: 'غير مفعل' },
-    { id: 6, brand: 'Huawei', model: 'P60 Pro', storage: '256GB', color: 'أخضر', colorHex: '#34c759', price: 3299, rating: 4.1, orders: 6, status: 'مفعل' },
-    { id: 7, brand: 'Samsung', model: 'Galaxy S23', storage: '256GB', color: 'أخضر فاتح', colorHex: '#a8e6cf', price: 3499, rating: 4.5, orders: 15, status: 'مفعل' },
+    { id: 2, brand: 'Apple', model: 'iiPhone 15 Pro', storage: '128GB', color: 'أزرق', colorHex: '#2e4ec0', price: 3799, rating: 4.6, orders: 21, status: 'مفعل' },
+    { id: 3, brand: 'Apple', model: 'iPhone 15 Pro', storage: '512GB', color: 'رمادي', colorHex: '#8e8e93', price: 5999, rating: 4.7, orders: 18, status: 'مفعل' },
+    { id: 4, brand: 'Apple', model: 'iPhone 15 Pro', storage: '256GB', color: 'أبيض', colorHex: '#e5e5ea', price: 1899, rating: 4.2, orders: 12, status: 'مفعل' },
+    { id: 5, brand: 'Apple', model: 'iPhone 15 Pro', storage: '128GB', color: 'وردي', colorHex: '#ff6b9d', price: 2999, rating: 4.4, orders: 9, status: 'غير مفعل' },
+    { id: 6, brand: 'Apple', model: 'iPhone 15 Pro', storage: '256GB', color: 'أخضر', colorHex: '#34c759', price: 3299, rating: 4.1, orders: 6, status: 'مفعل' },
+    { id: 7, brand: 'Apple', model: 'iPhone 15 Pro', storage: '256GB', color: 'أخضر فاتح', colorHex: '#a8e6cf', price: 3499, rating: 4.5, orders: 15, status: 'مفعل' },
   ];
 
   get filtered(): Device[] {

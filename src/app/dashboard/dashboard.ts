@@ -28,10 +28,10 @@ interface StatDatum {
 })
 export class Dashboard {
   stats: StatDatum[] = [
-    { value: '1,256', label: 'إجمالي الطلبات', sublabel: 'هذا الشهر', icon: 'orders' },
-    { value: '432', label: 'إجمالي العملاء', sublabel: 'عميل نشط', icon: 'clients' },
-    { value: '34', label: 'طلبات قيد الانتظار', sublabel: 'طلب قيد الانتظار', icon: 'pending' },
-    { value: '18', label: 'طلبات مكتملة', sublabel: 'هذا الأسبوع', icon: 'completed' },
-    { value: '21', label: 'تقييم الخدمة', sublabel: 'تقييم عام', icon: 'rating' },
+    { value: '31', label: 'طلبات جديدة', sublabel: 'عرض الكل', icon: 'orders' },
+    { value: '15', label: 'جاهزة للتسليم', sublabel: 'عرض الكل', icon: 'clients' },
+    { value: '24', label: 'قيد الأصلاح', sublabel: 'عرض الكل', icon: 'pending' },
+    { value: '532', label: 'الطلبات المكتملة', sublabel: 'هذا الأسبوع +8', icon: 'completed' },
+    { value: '1,250', label: 'إجمالي الطلبات', sublabel: 'عرض الكل', icon: 'rating' },
   ];
 }

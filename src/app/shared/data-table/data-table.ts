@@ -16,6 +16,7 @@ export interface RowAction {
 export interface RowActionEvent {
   icon: RowAction['icon'];
   row: Record<string, any>;
+  action: RowAction['icon'];
 }
 
 @Component({

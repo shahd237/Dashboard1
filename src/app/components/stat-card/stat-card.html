@@ -1,34 +1,39 @@
 <div class="stat-card">
-  <div class="stat-card__icon">
-    <ng-container [ngSwitch]="icon">
-      <svg *ngSwitchCase="'orders'" viewBox="0 0 24 24" fill="none">
-        <path d="M4 7l8-4 8 4-8 4-8-4Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
-        <path d="M4 7v10l8 4 8-4V7" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
-        <path d="M12 11v10" stroke="currentColor" stroke-width="1.5"/>
-      </svg>
-      <svg *ngSwitchCase="'clients'" viewBox="0 0 24 24" fill="none">
-        <circle cx="9" cy="8" r="3" stroke="currentColor" stroke-width="1.5"/>
-        <path d="M3.5 19c0-2.8 2.5-5 5.5-5s5.5 2.2 5.5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-        <circle cx="17" cy="8" r="2.3" stroke="currentColor" stroke-width="1.3"/>
-        <path d="M15.7 14.2c2.2.3 4 2.1 4 4.8" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
-      </svg>
-      <svg *ngSwitchCase="'pending'" viewBox="0 0 24 24" fill="none">
-        <circle cx="12" cy="12" r="8.5" stroke="currentColor" stroke-width="1.5"/>
-        <path d="M12 7.5V12l3 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-      <svg *ngSwitchCase="'completed'" viewBox="0 0 24 24" fill="none">
-        <circle cx="12" cy="12" r="8.5" stroke="currentColor" stroke-width="1.5"/>
-        <path d="M8.5 12.3l2.3 2.3 4.7-5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-      <svg *ngSwitchCase="'rating'" viewBox="0 0 24 24" fill="none">
-        <path d="M12 4.5l2.2 4.5 4.9.7-3.6 3.5.9 4.9L12 15.7l-4.4 2.4.9-4.9-3.6-3.5 4.9-.7L12 4.5Z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/>
-      </svg>
-    </ng-container>
+  <div class="stat-card__main">
+  
+
+    <div class="stat-card__body">
+      <span class="stat-card__label">{{ label }}</span>
+      <span class="stat-card__value">{{ value }}</span>
+    </div>
+
+      <div class="stat-card__icon">
+      <ng-container [ngSwitch]="icon">
+        <svg *ngSwitchCase="'orders'" viewBox="0 0 24 24" fill="none">
+          <path d="M4 7l8-4 8 4-8 4-8-4Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+          <path d="M4 7v10l8 4 8-4V7" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+          <path d="M12 11v10" stroke="currentColor" stroke-width="1.5"/>
+        </svg>
+        <svg *ngSwitchCase="'clients'" viewBox="0 0 24 24" fill="none">
+          <circle cx="9" cy="8" r="3" stroke="currentColor" stroke-width="1.5"/>
+          <path d="M3.5 19c0-2.8 2.5-5 5.5-5s5.5 2.2 5.5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          <circle cx="17" cy="8" r="2.3" stroke="currentColor" stroke-width="1.3"/>
+          <path d="M15.7 14.2c2.2.3 4 2.1 4 4.8" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+        </svg>
+        <svg *ngSwitchCase="'pending'" viewBox="0 0 24 24" fill="none">
+          <circle cx="12" cy="12" r="8.5" stroke="currentColor" stroke-width="1.5"/>
+          <path d="M12 7.5V12l3 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <svg *ngSwitchCase="'completed'" viewBox="0 0 24 24" fill="none">
+          <circle cx="12" cy="12" r="8.5" stroke="currentColor" stroke-width="1.5"/>
+          <path d="M8.5 12.3l2.3 2.3 4.7-5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <svg *ngSwitchCase="'rating'" viewBox="0 0 24 24" fill="none">
+          <path d="M12 4.5l2.2 4.5 4.9.7-3.6 3.5.9 4.9L12 15.7l-4.4 2.4.9-4.9-3.6-3.5 4.9-.7L12 4.5Z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/>
+        </svg>
+      </ng-container>
+    </div>
   </div>
 
-  <div class="stat-card__body">
-    <span class="stat-card__value">{{ value }}</span>
-    <span class="stat-card__label">{{ label }}</span>
-    <span class="stat-card__sublabel" *ngIf="sublabel">{{ sublabel }}</span>
-  </div>
+  <span class="stat-card__sublabel" *ngIf="sublabel">{{ sublabel }}</span>
 </div>

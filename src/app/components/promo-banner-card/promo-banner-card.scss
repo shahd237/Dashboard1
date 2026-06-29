@@ -19,11 +19,24 @@
   color: var(--text-dark);
 }
 
+.promo-card__title{
+  font-size: 30px;
+  color:#FEFEFE
+}
+
+.container{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin-left:12%
+}
+
 .promo-card__banner {
   position: relative;
   flex: 1;
   border-radius: var(--radius-md);
-  background: radial-gradient(120% 140% at 20% 20%, #2a3a73 0%, #161b35 65%, #0d1024 100%);
+  background: #002456;
   overflow: hidden;
   display: flex;
   align-items: center;

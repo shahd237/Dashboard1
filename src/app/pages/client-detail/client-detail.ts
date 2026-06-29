@@ -12,18 +12,19 @@ import { DataTable, ColumnDef } from '../../shared/data-table/data-table';
 export class ClientDetail {
   client = {
     name: 'أحمد سالم',
-    phone: '0555123456',
-    email: 'ahmed@mail.com',
-    city: 'الرياض',
-    joinDate: '10 فبراير 2024',
-    avatar: 'https://i.pravatar.cc/100?img=12',
+    phone: '01098540717',
+    email: 'shahdsh237@mail.com',
+    city: 'شارع الهرم - الجيزة',
+    joinDate: '10-5-2026',
+    status: 'نشط',
+    avatar: 'assets/image/f1326acd84b14d7fca1da878a3fa9ec7be74ee69.jpg',
   };
 
   stats = [
-    { label: 'إجمالي الطلبات', value: '12' },
-    { label: 'مكتملة', value: '9' },
-    { label: 'قيد التنفيذ', value: '2' },
-    { label: 'ملغاة', value: '1' },
+    { label: 'طلبات قيد العمل', value: '2',end:"طلب" },
+    { label: 'طلبات مكتملة', value: '6',end:"طلب" },
+    { label: 'عدد طلبات الصيانة', value: '8',end:"طلب" },
+    { label: 'اجمالي المدفعات', value: '4,550' ,end:"جنية"},
   ];
 
   columns: ColumnDef[] = [
@@ -35,9 +36,12 @@ export class ClientDetail {
   ];
 
   rows = [
-    { id: '#4582', device: 'iPhone 14 Pro', date: '12 يونيو 2026', price: '350 ر.س', status: 'مكتمل' },
-    { id: '#4495', device: 'MacBook Air', date: '2 مايو 2026', price: '620 ر.س', status: 'مكتمل' },
-    { id: '#4390', device: 'Samsung S23', date: '15 مارس 2026', price: '210 ر.س', status: 'قيد التنفيذ' },
-    { id: '#4210', device: 'iPad Pro', date: '1 يناير 2026', price: '440 ر.س', status: 'مكتمل' },
+    { id: '#4495', device: 'iPhone 13', date: 'جاهز للتسليم', status: '15-6-2026' },
+    { id: '#4582', device: 'iPhone 13', date: 'جاهز للتسليم', status:'15-6-2026' },
+    { id: '#4390', device: 'iPhone 13', date: 'جاهز للتسليم', status:'15-6-2026' },
+    { id: '#4210', device: 'iPhone 13', date: 'جاهز للتسليم', status:'15-6-2026' },
+    { id: '#4582', device: 'iPhone 13', date: 'جاهز للتسليم', status:'15-6-2026' },
+    { id: '#4390', device: 'iPhone 13', date: 'جاهز للتسليم', status:'15-6-2026' },
+    { id: '#4210', device: 'iPhone 13', date: 'جاهز للتسليم', status:'15-6-2026' },
   ];
 }
